@@ -1,0 +1,99 @@
+% ============================================================
+%  preamble.tex  --  packages, page layout, theorem boxes
+%  Loaded from main.tex with \input{preamble}
+%  Order matters: xcolor -> tcolorbox -> ... -> hyperref last.
+% ============================================================
+
+% ---------- math ----------
+\usepackage{amsmath, amssymb, amsthm, mathtools}
+
+% ---------- page layout ----------
+\usepackage{geometry}
+\geometry{margin=1.0in}
+
+% ---------- graphics & color ----------
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz-cd}
+\usepackage{tensor}
+\usepackage{microtype}
+\usepackage{bm}
+\usepackage{setspace}
+\usepackage{amsthm}
+\usepackage{appendix}
+
+
+% ---------- boxes ----------
+\usepackage[most]{tcolorbox}
+
+% ---------- bibliography ----------
+\usepackage[backend=biber, style=numeric-comp, url=false,
+            isbn=false, sorting=none]{biblatex}
+\addbibresource{references.bib}
+
+% ============================================================
+%  Theorem environments
+%  Declared with amsthm first, then wrapped in colored boxes.
+%  Do NOT redeclare any of these in commands.tex.
+% ============================================================
+
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{statement}[theorem]{Statement}
+\newtheorem{axiom}{Axiom}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{note}{Note}
+
+% ---------- palette: edit these to restyle everything ----------
+\definecolor{thmcol}{HTML}{2A6099}   % blue   -- results
+\definecolor{defcol}{HTML}{1B7A43}   % green  -- definitions
+\definecolor{rmkcol}{HTML}{8A6D1F}   % ochre  -- remarks
+\definecolor{excol} {HTML}{6B4C9A}   % violet -- examples
+\definecolor{axcol} {HTML}{FFCCCB}   % red -- examples
+\definecolor{notcol}{HTML}{E3242B}
+% ---------- \boxenv{environment}{color} ----------
+\newcommand{\boxenv}[2]{%
+  \tcolorboxenvironment{#1}{
+    enhanced jigsaw, breakable,
+    colback=#2!6,
+    colframe=#2!85!black,
+    boxrule=0.8pt,
+    arc=2pt,
+    left=8pt, right=8pt, top=6pt, bottom=6pt,
+    before skip=10pt, after skip=10pt
+  }%
+}
+
+\boxenv{theorem}{thmcol}
+\boxenv{lemma}{thmcol}
+\boxenv{proposition}{thmcol}
+\boxenv{corollary}{thmcol}
+\boxenv{conjecture}{thmcol}
+\boxenv{definition}{defcol}
+\boxenv{statement}{defcol}
+\boxenv{example}{excol}
+\boxenv{remark}{rmkcol}
+\boxenv{note}{notcol}
+\boxenv{axiom}{axcol}
+
+
+% Proofs deliberately left unboxed (amsthm default).
+
+% ---------- hyperref LAST ----------
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=thmcol,
+  citecolor=defcol,
+  urlcolor=thmcol
+}

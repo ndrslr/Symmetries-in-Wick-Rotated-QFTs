@@ -1,0 +1,1166 @@
+\documentclass[a4paper,11pt]{article}
+\input{preamble}
+\input{commands}
+
+
+\begin{document}
+
+\title{Symmtries in Wick Rotated QFT}
+\author{Minjae V. Kim and Nathan Dressler}
+\date{\today}
+\maketitle
+
+% \begin{abstract}
+%     These are my personal notes on physics and mathematics topics.
+% \end{abstract}
+
+These lecture notes for the Field Theory and Topology Reading Seminar at the University of Pennsylvania
+in Fall 2026 (https://maroon-scorch.github.io/ftt-2026/) is intended to both follow closely and expand on Lecture 3 of [F].
+
+
+\section{Axiom System for QFT}
+The goal of this lecture is to motivate the following Axiom system of a QFT by studying the progression 
+
+\[
+\mathbb{M}^n \rightsquigarrow \mathcal{D} \rightsquigarrow \mathbb{E}^n \rightsquigarrow X^n.
+\]
+That is, the progression from a QFT with certain symmetries $H_n$, defined on affine Minkowski space $\mathbb{M}^n$, to a curved geometry $X^n$ with differential $H_n$-structure.
+
+\begin{axiom}[Wick-rotated Field Theory]
+    A {\bf field theory} is a symmetric monoidal functor
+    \begin{equation}
+        F:  {\rm Bord}_{\langle n-1, n \rangle}({\mathcal X}^{\nabla}_n) \to t{\rm Vect}_\C
+    \end{equation}
+\end{axiom}
+
+
+Where ${\mathcal X}^{\nabla}_n$ is a geometric structure such as a Riemannian metric, conformal structure, section of a fiber bundle, connection on a principal bundle, topological structures, etc. These are commonly referred to as {\bf background fields} in physics. For a bordism $X:Y_0\to Y_1$:
+
+\begin{itemize}
+    \item For a closed $(n-1)$-manifold $Y_0$, the functor assigns a topological vector space
+    \[
+        F(Y_0)\in \mathrm{tVect}_{\mathbb{C}},
+    \]
+    which is interpreted as the state space associated to the spatial manifold $Y_0$. In a more analytic formulation of QFT, one would typically impose additional structure to make this a Hilbert space.
+
+    \item For an $n$-dimensional bordism $X:Y_0\to Y_1$,
+    the functor assigns a continuous linear map
+    \[
+        F(X):F(Y_0)\longrightarrow F(Y_1),
+    \]
+    which can be interpreted as an evolution operator taking states on $Y_0$ to states on $Y_1$ [BMS].
+
+    \item If two bordisms can be composed, 
+    \[
+        Y_0 \xrightarrow{X_1} Y_1\xrightarrow{X_2}Y_2,
+    \]
+    then functoriality gives
+    \[
+        F(X_2 \circ X_1) = F(X_2) \circ F(X_1) 
+    \]
+    Thus, gluing bordisms corresponds to composing the associated evolution maps.
+
+    \item For a disjoint union of $(n-1)$-manifolds, $Y_0 \sqcup Y_1$, the symmetric monoidal structure gives
+    \[
+        F(Y_0 \sqcup Y_1) \cong F(Y_0) \otimes F(Y_1)
+    \]
+    Thus disjoint systems correspond to tensor products of their state spaces. 
+
+    \item For a closed $n$-manifold $X$, viewed as a bordism $X:\varnothing \to \varnothing$,
+    we have 
+    \[
+        F(X):F(\varnothing)\longrightarrow F(\varnothing).
+    \]
+    Since $F(\varnothing)\cong\mathbb{C}$ and every linear endomorphism of $\mathbb C$ is multiplication by a unique scalar, this is determined by a complex number $F(X) \in \mathbb{C},$ which is interpreted as the partiation function on $X$.
+
+
+    \begin{remark}
+    The following points gives the geometric intuition for how correlation functions and local operators arise from the functorial
+    description. Making this precise requires additional structure beyond the present axiom, such as a suitable theory of observables or factorization structure. In particular, the limit
+    \[
+        \varprojlim_{\epsilon\to0}F(S_\epsilon(x))
+    \]
+    should, at this stage, be regarded as schematic notation rather than as a construction that follows forma=lly from the definition of $F$.
+\end{remark}
+
+
+    \item To obtain correlation functions, let $X$ be a closed $n$- manifold with points $x_1,\dots,x_k\in X$ and remove small open balls of radius $\epsilon$ around these points forming
+    \[
+        X_\epsilon = X\setminus \bigcup_{i=1}^k B_\epsilon (x_i)
+        \]
+        Each boundary component is a sphere of dimension $n-1$ written $S_\epsilon (x_i) \cong S^{n-1}$. Taking all boundary componenets to be incoming, $X_\epsilon$ is a bordism 
+        \[
+        X_\epsilon: S_\epsilon (x_1) \sqcup \cdots \sqcup S_\epsilon (x_k) \longrightarrow \varnothing
+        \]
+        The functor then gives a multilinear map 
+        \[
+        F(X_\epsilon):F(S_\epsilon(x_1)) \otimes \cdots\otimes F(S_\epsilon(x_k)) \longrightarrow \C
+        \]
+        In the inverse limit $\epsilon \to 0$, evaluating this map on local operators gives the Wick-rotated correlation function
+        \[
+            \left\langle \mathcal{O}_1(x_1)\cdots \mathcal{O}_k (x_k) \right\rangle = \varprojlim_{\epsilon\to 0} F(X_\epsilon) \bigl(\mathcal{O}_1 \ldots, \mathcal{O}_k\bigr).
+        \]
+        \item The local operators (or observables) at point $x_i$ are obtained by shrinking the surrounding sphere to a point:
+        \[
+        \mathcal{O}_{x_i} \in \varprojlim_{\epsilon \to 0} F(S_\epsilon(x_i))
+        \]
+        Thus the vector space $\lim_{\epsilon \to 0} F(S_\epsilon(x_i))$ is interpreted as the vector space of local operators at $x_i$.
+
+        \item Hence the functor $F$ packages the physical data of the theory into geometric and algebraic structures:
+        \[
+        \begin{array}{ccl}
+            \text{spatial manifold }Y &\longmapsto & \text{state space } F(Y),  \\
+             \text{bordism }X:Y_0 \to Y_1&\longmapsto & \text{evolution map }F(X),\\
+             \text{closed space }X &\longmapsto & \text{partition function }F(X),\\
+             \text{punctured spacetime }X_\epsilon &\longmapsto & \text{correlation functions},\\
+        \end{array}
+        \]
+\end{itemize}
+
+\begin{remark}
+    The renormalization group in QFT can be realized by a family $F_\Omega$ of the functors in Axiom $1$ for $\Omega \in \R^{>0}$ by composing $F$ with the family of automorphisms of ${\rm Bord}_{\langle n-1,n\rangle}(\mathcal{X}^{\nabla}_n)$ which scale the Riemannian metric $g \mapsto \Omega^2g$. 
+\end{remark}
+
+\begin{remark}
+    Although physical spacetime is typically noncompact, the bordism formalism is naturally formulated using compact manifolds. A compact bordism represents a finite spacetime process with specified boundary data. Noncompact spacetimes can then be treated by taking limits, imposing asymptotic boundary conditions, or considering an appropriate completion of the bordism category.
+\end{remark}
+
+\section{QM as a Quantum System (Reminder)}
+
+\subsection{Reminder of QM}
+The axiomatic system of QM, in the first presented form, consists of following data:
+\begin{statement}[Mechanics]
+    Axiomatic system of a mechanical system has
+    \begin{enumerate}
+         \item States: The space of states is \[ \mathcal S = \left\{ \sigma\in\mathcal L^1(\mathcal H) \,\middle|\, \sigma=\sigma^*,\ \sigma\geq0,\ \operatorname{Tr}(\sigma)=1 \right\}.\] The pure states are the rank-one orthogonal projections, and hence $\mathcal{S}_0 \cong \mathbb{P}\mathcal{H}$. In physics, $\sigma$ is often called as the density matrix of a mixed state (although often $\mathcal{H}$ is not finite dimensional).
+        \item Operators: $\mathcal{O}$ are operators of $\mathcal{H}$. Observables are self-adjoint (possibly unbounded, densely defined) operators on \(\mathcal H\):
+        \[
+        \mathcal O_{\mathbb R}=\{A:A=A^*\}.
+        \]
+        More generally, one considers the complex space of operators equipped with the involution
+        \[ A\longmapsto A^*.\]
+        \item Hamiltonian: $H \in \mathcal{O}^{\infty}_{\mathbb R}$ where $\mathcal{O}^\infty $ is a dense subset of $\mathcal{O}$ with Lie algebra structure
+        \[
+        [A_1,A_2]_{\mathrm{P}}=-\frac{i}{\hbar}(A_1A_2-A_2A_1).
+        \]
+        Deemed the Poisson Bracket.
+        \item Probability pairing: $p: \mathcal{O}_{\R} \times \mathcal{S} \to {\rm Prob}({\R}), ~(A,\sigma) \mapsto \sigma_A $
+        \item Function on operators: ${\rm Borel}(\R) \times \mathcal{O}_\R \to \mathcal{O}_\R$ for $f \in {\rm Borel}(\R)$ and $A \in \mathcal{O_\R}$ pairing to $f(A)$ 
+        \item Hamiltonian evolution: The self-adjoint Hamiltonian \(H\) generates the one-parameter unitary group \[
+        U_t=e^{-itH/\hbar}.
+        \] This induces the evolution $\sigma\longmapsto U_t\sigma U_t^*$ on states and $A\longmapsto U_tAU_t^*$ on observables.
+    \end{enumerate}
+    Satisfying several axioms [F].
+\end{statement}
+\begin{remark}
+    Especially, Hamiltonian $H$ induces time evolution $t\mapsto U_t=\exp(-iHt/\hbar)$ in both $\mathcal{S}$ (Schrodinger picture) and $\mathcal{O}$ (Heisenberg picture). These satisfy certain compatibility conditions so that either picture can be chosen without changing the probability pairing, as a function of time.
+\end{remark}
+For the discussions of QFT, it is useful to adopt an alternative axiomatic system, where we place the operator on top of the time $\mathbb{M}^1$ as a complex vector bundle.
+\begin{statement}[Alternative System]
+    An alternative Axiomatic system can be given as
+    \begin{enumerate}
+        \item[2'.] Operators with support: operators are given as a complex vector bundle with real structures $\cO \to {\mathbb{M}^1}$ and a dense subbundle $\cO^{\infty}$ .... Lie algebra structure. Call $\cO_t$ as a fiber over time $t$. 
+        \item[4'.] Correlation functions: Consider a finite sequence of time $t_1 < t_2 < \dots < t_n$. A correlation function is a map $\langle ~ \rangle: \cO_{t_1} \times \cO_{t_2} \times \dots \times \cO_{t_n} \times \mathcal{S} \to \Complex$. Its evaluation is denoted as $\langle A_{t_1}\dots A_{t_n}\rangle_\sigma \in \Complex$.
+    \end{enumerate}
+\end{statement}
+\begin{remark}
+        The probability paring is expected to be recoverable from the one-point correlation function via $\langle A\rangle_\sigma = \int \lambda \dd \sigma_A(\lambda)$.
+\end{remark}
+\begin{remark}
+    Correlation functions are not always well defined, e.g. multiplication of unbounded operators.
+\end{remark}
+
+
+\section{Symmetry of Relativistic QFT}
+\subsection{Relativistic QFT}
+We begin from the structure of spacetime. Isometries of the spacetime is part of the data that we need to determine the symmetry of a QFT. Relativistic QFT takes place in Minkowski spacetime $\mathbb{M}^n$:
+
+\begin{definition}[Minkowski spacetime]
+    A {\bf Minkowski spacetime} of $n=d+1$ dimension is an affine space $\mathbb{A}^n$ endowed with metric $\langle x, x\rangle =(x_0)^2-(x^1)^2-\dots -(x^d)^2=\eta_{\mu\nu}x^\mu x^\nu$
+\end{definition}
+
+Consider a {\bf relativistic QFT}, denoted as ${\mathcal{Q}}$, with a symmetry group $H_{1,n-1}$. We make an assumption that $H_{1,n-1}$ acts on the spacetime, {\bf preserving the time orientation} via $\rho_n:H_{1,n-1}\longrightarrow \mathcal{I}^{\uparrow}_{1,n-1}$ and that the image of $\rho_n$ {\bf contains} the identity component $SO^{\uparrow}_{1,n-1}$. It has following properties/data:
+\begin{enumerate}
+    \item {\bf Fields} in ${\mathcal{Q}}$ are defined by a finite-dimensional $\Z_2$ graded Real reps
+    \begin{equation}
+        \sigma: H_{1,n-1}\longrightarrow {\rm Aut (R)} 
+    \end{equation}
+    {\bf Classical Fields} are the functions ${\mathbb M}^n \longrightarrow R$. {\bf Quantum Fields} are the $R$-valued Operator distributions $\Phi=\Phi^0+\Phi^1$ on ${\mathbb M}^n$.
+    \item {\bf N-point function} is a distribution, which takes a set of Schwartz functions $f_i:{\mathbb M}^n\longrightarrow R^*$ as an input and gives value in $\C$. For an example, a two-point function may be written as 
+    \begin{equation}
+        \langle \Phi(f_1)\Phi(f_2)\rangle = \int_{({\mathbb M}^n)^2}\dd x_1 \dd x_2~f(x_1)f(x_2)\langle \Phi (x_1)\Phi(x_2)\rangle
+    \end{equation}
+    where $\langle \Phi (x_1)\Phi(x_2)\rangle$ is the kernel of the $R_{\C}^{\otimes 2}$ valued distribution. 
+    \item From the correlation functions, one can construct the $\Z/2$-graded {\bf Hilbert space} $\Hil = \Hil_0 \oplus \Hil_1$ (bosonic and fermionic states) which includes a vacuum state $\Omega$.
+    \item The {\bf field operators} $\Phi(f)$ act as unbounded operators on $\Hil$. In particular, $2$-point functions compute the vacuum expectation value of the operators
+    \begin{equation}
+        \langle \Phi(f_1)\Phi(f_2)\rangle = \langle \Omega, \Phi(f_1)\Phi(f_2)\Omega\rangle_{\Hil}
+    \end{equation}
+    \item An {\bf unitary representation} $U \colon {\mathcal G}_{1,n-1} \to U(\Hil)$ with $U(g) \Omega = \Omega$. In theories {\it without} supersymmetry, the image of $U$ preserves the grading of $\Hil$. Both $n$-point functions and the vacuum state are {\bf invariant} under the actions.
+    \item Positivity of energy: the spectral measure of $U|_{\R^{1,n-1}}$ is supported in the closed forward light cone dual to $\R^{1,n-1}_+.$
+\end{enumerate}
+
+We additionally assumes the {\bf Spin Statistics Theorem}. The action of $H_{1,n-1}$ preserves the $\Z_2$ grading of $\Hil$. In particular, $k_0\in K \subset H_{1,n-1}$ acts as a grading operator of $R$. 
+
+% Spin statistics theorem states that we have either Bosonic (symmetric) or Fermionic (antisymmetric) states in relativistic theory of dimension $\geq 4$. \todo{Why $k_0$ acts as a grading operator here?}
+
+\subsection{Wick Rotation}
+A central idea of CRT comes from the observation that the correlation functions of sufficiently well behaving QFT can be analytically continued to the {\bf complexified Minkowski spacetime}. The complexification involves {\bf Wick rotation} of timelike vectors to the imaginary time. \\
+
+Recall that a Minkowski spacetime is an affine space ${\mathbb{M}}^n$ endowed with a translation vector space $V={\R}^{1,n-1}$, with a choice of future timelike cone $V_+=\{\zeta: \langle \zeta,\zeta\rangle >0\}$. We fix an orthogonal splitting $V=U\oplus U^{\perp}$. 
+
+\begin{definition}[Complexified Minkowski Spacetime]
+    A complexified Minkowski spacetime ${\mathbb{M}}_{\C}^n$ is defined as an affine space ${\mathbb{M}^n}\times_VV_{\C}$.  Its translation vector space is $V_{\C}$. As a set of points, it is $({\mathbb{M}^n}\times V_{\C})/\sim$, where the orbits under $V\subset V_{\C}$ are quotiented out: $v\cdot(m,z) = (m+v,z-v)\sim (m,z)$. 
+\end{definition}
+
+It is helpful to consider ${\mathbb M}^n_{\C}$ as an affine space $V_{\C}$ over $V_{\C}$, where $V_{\C}$ is spanned by orthonormal vectors $e_0,e_1,\dots ,e_{n-1}$. Then, the Euclidean space $\mathbb E^n$ is an {\it Real} affine subspace as an orbit of $V_E=\langle e_0,e_1,\dots ,e_{n-1}\rangle_\R$ and the Minkowski space $\mathbb M^{n}$ is an {\it Real} affine subspace as an orbit of $V=\langle ie_0,e_1,\dots ,e_{n-1}\rangle_\R$.\\
+
+What is the domain $\mathcal D$ to which we cal {analytically continue} the QFT? We start by observing the fact that the positive definite energy affords us to analytically continue to the {\bf backward tube}.
+\begin{equation}
+    \mathcal{T}\coloneqq V-iV_+=\{(i(t-i\tau),{\bf x}-i{\bf y}):(t,{\bf x}),(\tau, {\bf y})\in {\mathbb M}^n, {\rm where ~} |{\bf y}|<\tau \}
+\end{equation}
+The correlation function in $V$ is invariant under $SO^{\uparrow}_{1,n-1}$, and this invariance extends to $\mathcal{T}$, as it acts on $V_+$ too. That is, the correlation function is constant on the orbits of $SO^{\uparrow}_{1,n-1}$ acting on $\mathcal{T}$. We extend this along the orbits of the complexification $SO_n(\C)$. The resulting domain is then
+\begin{equation}
+    \mathcal{D}=SO_n(\C)(\mathcal{T})=O_n(\C)(\mathcal{T})
+\end{equation}
+
+\begin{remark}
+    $\mathcal{D}$ includes both $V$ and $V_E\setminus\{0\}$.
+\end{remark}
+For the rest of this section, we call two point correlation function in ${\mathbb M}^n$ as
+\begin{equation}
+    W(\xi)=\langle \Phi(x+\xi)\Phi(x)\rangle
+\end{equation}
+and its complex extension as $W_{\C}$. Note that $W(\xi)$ for spacelike $\xi$ can be acquired as a boundary value of $W_{\C}$, approaching from ``$-i$ timelike'' direction. That is,
+\begin{equation}
+    W(\xi) = \lim_{\epsilon\rightarrow 0^+}W_{\C}(\xi-i\epsilon\eta), \qquad \xi \in V, \qquad \eta \in V_+~.
+\end{equation}
+\begin{remark}
+    Note that in physics literature, $W$ is generally written as a function of some preferred coordinates. Wick rotation is achieved by relabeling $t=-i\tau$ with $\tau>0$. Then, the statement on the boundary value is that 
+    \begin{equation}
+        W(t,{\bf x})= \lim_{\epsilon\rightarrow 0^+}W_{\C}(t-i\epsilon, {\bf x})
+    \end{equation}
+\end{remark}
+
+\section{Symmetry Groups in QFT}
+With the notion of Wick Rotations in QFT, we may now study the subprogression
+\[
+\mathbb{M}^n \rightsquigarrow \mathcal{D} \rightsquigarrow \mathbb{E}^n.
+\]
+For a theory defined on Minkowski spacetime, we denote $\mathcal{G}_{1,n-1}$ to be the unbroken global symmetry group of the theory. We denote $\mathcal{I}_{1,n-1}$ to be the group of isometries of the spacetime, and $K$ to be the symmetry group that leaves the spacetime invariant. We call $K$ the  internal symmetry group and assume $K$ is compact following [F]. Heuristically, you may think: 
+\[
+\mathcal{G}_{1,n-1} \sim K \; \rtimes \mathcal{I}_{1,n-1}.\]
+We will restrict to $\mathcal{I}^\uparrow_{1.n-1} \subset \mathcal{I}_{1.n-1}$, the subgroup of time orientation-preserving isometries. A common approach in quantum field theory, particularly in treatments based on the $S$-matrix, assumes that the Poincar\'e group is a subgroup of $\mathcal{G}_{1,n-1}$. The Coleman--Mandula theorem then implies, at the level of Lie algebras, a decomposition
+\[
+    \mathfrak{g}_{1,n-1}
+    \cong
+    \mathfrak{p}_{1,n-1}\oplus\mathfrak{k},
+\]
+where $\mathfrak{p}_{1,n-1}$ is the Lie algebra of the Poincar\'e group and $\mathfrak{k}$ is the Lie algebra of $K$.\\
+
+Instead, [F] puts forth the following hypothesis:
+
+\begin{statement}
+    There exists a homomorphism $\mathcal{G}_{1,n-1} \to \mathcal{I}_{1,n-1}$ such that:
+    \begin{enumerate}
+        \item The image of the homomorphism contains the identity component $\mathcal{I}^0_{1,n-1}$
+        \item The kernel of the homomorphism is a compact Lie group $K$
+        \item The translation subgroup $\R^{1,n-1} \subset \mathcal{I}^\uparrow_{1,n-1}$ lifts to a normal subgroup of $\mathcal{G}_{1,n-1}$.
+    \end{enumerate}
+\end{statement}
+Still in this new approach, the kernel $K$ is the group of internal symmetries of the theory; These are the symmetries that fix spacetime point-wise.
+
+\begin{definition}
+    Define $H_{1,n-1} = \mathcal{G}_{1,n-1}/\R^{1,n-1}$, the reduced global symmetry group.
+\end{definition}
+This produces the following diagram:
+\begin{equation*}
+\begin{tikzcd}
+	&& 1 & 1 \\
+	& 1 & {\R^{1,n-1}} & {\R^{1,n-1}} \\
+	1 & K & {\mathcal{G}_{1,n-1}} & {{\mathcal I}^{\uparrow}_{1,n-1}} \\
+	1 & K & {H_{1,n-1}} & {O^{\uparrow}_{1,n-1}} \\
+	&& 1 & 1
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-2, to=3-2]
+	\arrow["{=}", from=2-3, to=2-4]
+	\arrow[from=2-3, to=3-3]
+	\arrow[from=2-4, to=3-4]
+	\arrow[from=3-1, to=3-2]
+	\arrow[from=3-2, to=3-3]
+	\arrow["{||}", from=3-2, to=4-2]
+	\arrow["{\rho_n}", from=3-3, to=3-4]
+	\arrow[from=3-3, to=4-3]
+	\arrow[from=3-4, to=4-4]
+	\arrow[from=4-1, to=4-2]
+	\arrow[from=4-2, to=4-3]
+	\arrow["{\rho_n}", from=4-3, to=4-4]
+	\arrow[from=4-3, to=5-3]
+	\arrow[from=4-4, to=5-4]
+\end{tikzcd}
+\end{equation*}
+
+Note this has all been done in Minkowski spacetime $\mathbb{M}^n$. By the previous argument made in the Wick rotation section, we may complexify $H_{1,n-1}$ to act as symmetries on the complex correlation functions in the complexified domain $\mathcal{D}$. We define a different real form $H_n$ acting on the Wick-rotated Euclidean theory $\mathbb{E}^n$ by choosing a new real slice of this complexified domain. This produces the following commutative diagram of Lie groups: 
+\[
+\begin{tikzcd}
+1 \arrow[r] & K \arrow[r] \arrow[d,hook] &
+H_{1,n-1} \arrow[r, "\rho_n"] \arrow[d,hook] &
+O^\uparrow_{1,n-1} \arrow[r] \arrow[d,hook] &  1\\
+1 \arrow[r] & K(\mathbb C) \arrow[r]  &
+H_n(\mathbb C) \arrow[r, "\rho_n"]  &
+O_n(\mathbb C) \arrow[r] & 1 \\
+1 \arrow[r] & K \arrow[r] \arrow[u,hook]&
+H_n \arrow[r, "\rho_n"] \arrow[u,hook] &
+O_n \arrow[r] \arrow[u,hook] & 1
+\end{tikzcd}
+\]
+
+\begin{remark}
+    The kernel of $\rho_n:H_n\longrightarrow O_n$ is the same compact real form $K\subset K(\mathbb C)$ as the kernel of
+    \[
+        \rho_n:H_{1,n-1}\longrightarrow O^\uparrow_{1,n-1}.
+    \]
+\end{remark}
+
+This is simply because the internal symmetries are defined to act trivially on spacetime, and are therefore unaffected by the change from Minkowski to Euclidean spacetime. Thus the Euclidean real form of the kernel is taken to be the same compact real form $K\subset K(\mathbb C)$.
+ 
+\begin{remark}
+    This implies that the problem of classifying the {\bf symmetry} of a Relativistic QFT is equivalent to the problem of classifying the {\bf symmetry type} $(H_n, \rho_n)$.
+\end{remark}
+
+\begin{remark}
+Since the identity component of $O_n$ is $SO_n$, $SO_n \subseteq {\rm im}(\rho_n) \subseteq O_n$, and $SO_n$ has index two in $O_n$, there are only two possibilities: ${\rm im}(\rho_n) = SO_n$ or ${\rm im}(\rho_n) = O_n$. Thus the Euclidean theory either has only orientation-preserving
+spacetime symmetries, or it also has reflections. After anti-Wick rotation, these correspond respectively to the absence or presence of the corresponding time-reversing symmetries.
+\end{remark}
+
+Let $SH_n = \rho^{-1}(SO_n)$ and $\widetilde{SH_n}$ be the double cover of $SH_n$. Note this double cover of $SH_n$ can be constructed using ${\rm Spin}_n$, the double cover of $SO_n$. That is:
+
+\[
+\begin{tikzcd}
+1 \arrow[r] & K \arrow[r] \arrow[d, equal] &
+\widetilde{SH_n} \arrow[r] \arrow[d, two heads, "2:1"] &
+{\rm Spin}_n \arrow[r] \arrow[d, two heads, "2:1"] &  1\\
+1 \arrow[r] & K \arrow[r] \arrow[d, equal] &
+SH_n \arrow[r] \arrow[d, hook, "1:2"] &
+SO_n \arrow[r] \arrow[d, hook, "1:2"] & 1 \\
+1 \arrow[r] & K \arrow[r] &
+H_n \arrow[r, "\rho_n"]  &
+O_n \arrow[r]  & 1
+\end{tikzcd}
+\]
+
+If $\rho_n: H_n \to O_n$ is surjective, then we define $\widetilde{H_n}$ in the following way:
+
+\[
+\begin{tikzcd}
+1 \arrow[r] & K \arrow[r] \arrow[d, equal] &
+\widetilde{H_n} \arrow[r] \arrow[d, two heads, "2:1"] &
+{\rm Spin}_n \arrow[r] \arrow[d, two heads, "2:1"] &  1\\
+1 \arrow[r] & K \arrow[r] &
+H_n \arrow[r, "\rho_n"]  &
+O_n \arrow[r]  & 1
+\end{tikzcd}
+\]
+
+Let $\mathfrak{h_n}, \mathfrak{k}, \mathfrak{o_n}$ be the Lie algebras of $H_n, K, O_n$ respectfully.
+
+\begin{theorem}[Theorem 3.16]
+Assume $n \geq 3$.
+
+\begin{enumerate}
+    \item There is a splitting
+    \[
+        \mathfrak{h}_n = \mathfrak{o}_n' \oplus \mathfrak{k},
+    \]
+    and $\rho_n$ induces an isomorphism of Lie algebras
+    \[
+        \mathfrak{o}_n' \xrightarrow{\cong} \mathfrak{o}_n.
+    \]
+
+    \item If $n \geq 3$, there is an isomorphism
+    \[
+        \widetilde{SH}_n \cong \operatorname{Spin}_n \times K.
+    \]
+    Hence there exists a central element $k_0 \in K$ with $k_0^2 = 1$ and an isomorphism
+    \[
+        SH_n
+        \cong
+        \operatorname{Spin}_n \times K
+        \big/
+        \langle (-1,k_0)\rangle,
+    \]
+    where $\langle (-1,k_0)\rangle$ is the cyclic group generated by
+    $(-1,k_0)$.
+
+    \item There is a canonical homomorphism
+    \[
+        \operatorname{Spin}_n \longrightarrow H_n
+    \]
+    under which the image of the central element
+    $-1 \in \operatorname{Spin}_n$
+    is $k_0 \in K$.
+
+    \item If $n \geq 3$ and $\rho_n : H_n \longrightarrow O_n$ is surjective, then there exists a group extension
+    \[
+        1 \longrightarrow K \longrightarrow J
+        \longrightarrow \{\pm 1\} \longrightarrow 1
+    \]
+    and a pullback diagram of group extensions
+    \[
+    \begin{tikzcd}
+        1 \arrow[r] &
+        K \arrow[r] \arrow[d, equal] &
+        \widetilde{H}_n \arrow[r, "\rho_n"] \arrow[d, two heads] &
+        \operatorname{Pin}_n^+ \arrow[r] \arrow[d, two heads] &
+        1 \\
+        1 \arrow[r] &
+        K \arrow[r] &
+        J \arrow[r] &
+        \{\pm1\} \arrow[r] &
+        1.
+    \end{tikzcd}
+    \]
+    There is an isomorphism
+    \[
+        H_n
+        \cong
+        \widetilde{H}_n
+        \big/
+        \langle (-1,k_0)\rangle.
+    \]
+\end{enumerate}
+\end{theorem}
+
+Note that $(1.)$ states [F]'s version of the Coleman--Mandula theorem.  Essentially, it says that $H_n$ is locally modeled on the product $K\times O_n$: infinitesimally, the spacetime and internal symmetries separate.\\
+
+Part $(2.)$ is the corresponding splitting at the level of Lie groups rather than Lie algebras: $\widetilde{SH}_n \cong \rm{Spin} \times K$ after passing to the spin double cover. However, $SH_n$ itself is not necessarily a direct product since the central element $-1 \in \rm{Spin}_n$ is identified with a central element $k_0 \in K$. In other words,
+\[
+SH_n \cong ({\rm Spin}_n \times K)/\langle(-1,k_0)\rangle.
+\]
+
+Part $(3.)$ the homomorphism $\Spin_n\to H_n$ of Theorem~4.4 should be viewed as describing the
+Lorentz (spin) part of the spacetime symmetry after passing to the quotient by translations.  Under anti-Wick rotation, the Euclidean group $\Spin_n$ analytically continues to the Lorentz spin group $\Spin_{1,n-1}$, while the lifted translation subgroup $\mathbb R^{1,n-1}$ is unchanged. Thus, restoring the translations that
+were quotiented out in defining $H_n$, the map of Theorem~4.4 gives heuristically
+\[
+  \mathbb R^{1,n-1}\rtimes\Spin_{1,n-1}
+  \longrightarrow \mathcal{H}_{1,n-1},
+\]
+i.e.\ the usual action of the (spin cover of the) Poincaré group on the full symmetry group of the Minkowski theory.  In particular, the statement that $-1\in\Spin_n$ maps to $k_0\in K$ becomes, after anti-Wick rotation, the familiar
+fact that the central element of the Lorentz spin group can act as an internal symmetry (e.g.\ $(-1)^F$) on the theory.\\
+
+Finally, Part $(4.)$ describes the additional structure that appears when orientation-reversing symmetries are present.  In this case the orientation-reversing part is controlled by a group extension
+\[
+1\longrightarrow K\longrightarrow J\longrightarrow\{\pm1\}
+\longrightarrow1,
+\]
+which is independent of $n$.  Thus the connected symmetry group splits after passing to the spin double cover, while the extension $J$ records
+the additional information carried by orientation-reversing symmetries.
+\\
+
+The full proof of Theorem 4.3 is contained in [FH]. Though we give brief sketches of parts 1 and 2:
+
+\begin{proof}[Proof of Theorem~3.16(1)]
+We give the main Lie-algebraic idea. Since $H_n$ is a compact Lie group,
+its Lie algebra $\mathfrak{h}_n$ is reductive, so
+\[
+    \mathfrak{h}_n = [\mathfrak{h}_n,\mathfrak{h}_n] \oplus \mathfrak{z}(\mathfrak{h}_n),
+\]
+where the derived algebra $[\mathfrak{h}_n,\mathfrak{h}_n]$ is semisimple and
+$\mathfrak{z}(\mathfrak{h}_n)$ is the center. In particular, the Killing form of
+$[\mathfrak{h}_n,\mathfrak{h}_n]$ is nondegenerate. Since $n \geq 3$, the Lie algebra $\mathfrak{o}_n$ is semisimple, and in
+particular has zero center. The differential $\rho_n : \mathfrak{h}_n \to \mathfrak{o}_n$
+is surjective with kernel $\mathfrak{k}$. Because $\mathfrak{o}_n$ is semisimple,
+$[\mathfrak{o}_n,\mathfrak{o}_n]=\mathfrak{o}_n$, and hence
+\[
+    \rho_n\bigl([\mathfrak{h}_n,\mathfrak{h}_n]\bigr)
+    = [\mathfrak{o}_n,\mathfrak{o}_n] = \mathfrak{o}_n .
+\]
+
+Set $\mathfrak{k}_{ss} := \mathfrak{k}\cap[\mathfrak{h}_n,\mathfrak{h}_n]$, which is an ideal of $[\mathfrak{h}_n,\mathfrak{h}_n]$ since $\mathfrak{k}=\ker\rho_n$ is an ideal of $\mathfrak{h}_n$. Let $\mathfrak{o}_n'$ be the orthogonal complement of $\mathfrak{k}_{ss}$ in
+$[\mathfrak{h}_n,\mathfrak{h}_n]$ with respect to the Killing form. Since the Killing form is
+nondegenerate and $\mathfrak{k}_{ss}$ is an ideal of a semisimple Lie algebra,
+$\mathfrak{o}_n'$ is also an ideal and
+\[
+    [\mathfrak{h}_n,\mathfrak{h}_n] = \mathfrak{o}'_n \oplus \mathfrak{k}_{ss}.
+\]
+The restriction $\rho_n|_{\mathfrak{o}'_n} : \mathfrak{o}'_n \to \mathfrak{o}_n$ is injective, because
+its kernel lies in $\mathfrak{o}_n'\cap\mathfrak{k}_{ss}=0$. It is surjective, because
+\[
+    \mathfrak{o}_n = \rho_n\bigl([\mathfrak{h}_n,\mathfrak{h}_n]\bigr)
+    = \rho_n(\mathfrak{o}_n') + \rho_n(\mathfrak{k}_{ss}) = \rho_n(\mathfrak{o}_n').
+\]
+Hence $\rho_n|_{\mathfrak{o}'_n}$ is an isomorphism of Lie algebras. Finally, $\rho_n$ maps $\mathfrak{z}(\mathfrak{h}_n)$ into $\mathfrak{z}(\mathfrak{o}_n)=0$ by
+surjectivity, so $\mathfrak{z}(\mathfrak{h}_n)\subseteq\mathfrak{k}$. Consequently
+$\mathfrak{k} = \mathfrak{k}_{ss}\oplus\mathfrak{z}(\mathfrak{h}_n)$: given $x\in\mathfrak{k}$, write
+$x=a+z$ with $a\in[\mathfrak{h}_n,\mathfrak{h}_n]$ and $z\in\mathfrak{z}(\mathfrak{h}_n)\subseteq\mathfrak{k}$;
+then $a=x-z\in\mathfrak{k}\cap[\mathfrak{h}_n,\mathfrak{h}_n]=\mathfrak{k}_{ss}$. Therefore
+\[
+    \mathfrak{h}_n
+    = \mathfrak{o}_n' \oplus \mathfrak{k}_{ss} \oplus \mathfrak{z}(\mathfrak{h}_n)
+    = \mathfrak{o}_n' \oplus \mathfrak{k}.
+\]
+Thus, infinitesimally, the spacetime and internal symmetries separate.
+\end{proof}
+
+\begin{proof}[Proof of Theorem~3.16(2)]
+For $n\geq 3$, Part~(1) gives a splitting of Lie algebras
+\[
+    \mathfrak{sh}_n\cong\mathfrak{o}'_n\oplus\mathfrak{k},
+    \qquad
+    \mathfrak{o}'_n\cong\mathfrak{so}_n.
+\]
+Passing to the simply connected cover removes the possible global obstruction to integrating this splitting. Since $\Spin_n$ is the simply
+connected Lie group with Lie algebra $\mathfrak{so}_n$, the $\mathfrak{o}'_n$-factor integrates to $\Spin_n$, and, by the construction
+of $\widetilde{SH}_n$, the $\mathfrak{k}$-factor integrates to $K$. Hence
+\[
+    \widetilde{SH}_n\cong\Spin_n\times K.
+\]
+Let $q:\widetilde{SH}_n\longrightarrow SH_n$ be the covering homomorphism. The kernel of this covering is the central subgroup of order $2$, so under the above identification we may write $\ker(q)=\{(1,1),(-1,k_0)\}$ for some $k_0\in K$. Since $(-1,k_0)$ has order $2$,
+\[
+    (1,1)=(-1,k_0)^2=(1,k_0^2),
+\]
+and hence $k_0^2=1$. Moreover, since $\ker(q)$ is central, $(-1,k_0)$ is central in $\Spin_n\times K$, and therefore $k_0$ is
+central in $K$. Finally, the first isomorphism theorem gives
+\[
+    SH_n
+    \cong
+    \frac{\widetilde{SH}_n}{\ker(q)}
+    \cong
+    \frac{\Spin_n\times K}
+         {\langle(-1,k_0)\rangle}.
+\]
+\end{proof}
+
+
+\begin{proposition}[Proposition 2.16]
+Assume $n\geq 3$. If the internal symmetry group $K$ is trivial, then
+\[
+    H_n\cong \mathrm{SO}_n
+    \qquad\text{or}\qquad
+    H_n\cong \mathrm{O}_n.
+\]
+If $K\cong\{\pm1\}$ is cyclic of order two, then there are six possibilities for $H_n$ up to isomorphism:
+\[
+    \mathrm{SO}_n\times\{\pm1\},\qquad
+    \mathrm{Spin}_n,\qquad
+    \mathrm{O}_n\times\{\pm1\},\qquad
+    E_n,\qquad
+    \mathrm{Pin}_n^+,\qquad
+    \mathrm{Pin}_n^-.
+\]
+\end{proposition}
+
+\begin{proof}
+If $K=\{1\}$, then since $\operatorname{im}(\rho_n)$ is either $\mathrm{SO}_n$ or $\mathrm{O}_n$, we have the first statement.\\
+
+Now suppose $K\cong\{\pm1\}$. Then $H_n$ is a central extension
+\[
+    1\longrightarrow\{\pm1\}\longrightarrow H_n
+    \overset{\rho_n}{\longrightarrow}G\longrightarrow1,
+    \qquad
+    G=\mathrm{SO}_n\ \text{or}\ \mathrm{O}_n.
+\]
+Such extensions are classified by
+\[
+    H^2(B\mathrm{SO}_n;\mathbb Z/2)\cong\mathbb Z/2
+\]
+in the $\mathrm{SO}_n$ case, and by
+\[
+    H^2(B\mathrm{O}_n;\mathbb Z/2)
+    \cong(\mathbb Z/2)^2
+\]
+in the $\mathrm{O}_n$ case. Working out the corresponding extensions gives the six groups
+\[
+    \mathrm{SO}_n\times\{\pm1\},\quad
+    \mathrm{Spin}_n,\quad
+    \mathrm{O}_n\times\{\pm1\},\quad
+    E_n,\quad
+    \mathrm{Pin}_n^+,\quad
+    \mathrm{Pin}_n^-.
+\]
+In the first, third, and fourth cases, the nonidentity element of $K$ is not
+the image of the central element $-1\in\mathrm{Spin}_n$. The remaining cases
+give the five basic symmetry types below.
+\end{proof}
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{c|c|c|c}
+        \text{States / symmetry} & H_n & K & k_0 \\ \hline
+        \text{Bosons only}
+            & \mathrm{SO}_n
+            & \{1\} & k_0=1 \\[2mm]
+        \text{Fermions allowed}
+            & \mathrm{Spin}_n
+            & \{\pm1\} & k_0=-1 \\[2mm]
+        \text{Bosons, time-reversal }(T)
+            & \mathrm{O}_n
+            & \{1\} & k_0=1 \\[2mm]
+        \text{Fermions, }T^2=(-1)^F
+            & \mathrm{Pin}_n^+
+            & \{\pm1\} & k_0=-1 \\[2mm]
+        \text{Fermions, }T^2=\mathrm{id}
+            & \mathrm{Pin}_n^-
+            & \{\pm1\} & k_0=-1
+    \end{tabular}
+    \caption{The five basic symmetry types.}
+    \label{tab:symmetry-types}
+\end{table}
+
+Below, we introduce an idea of a stabilization of $H_n$, the main structure result needed about symmetry groups in QFT.
+
+
+
+\begin{theorem}[Theorem 3.24]
+Assume $n \geq 3$. There exist compact Lie groups $H_m$, $m > n$, and
+homomorphisms $i_n,\rho_n$ which fit into the commutative diagram
+\[
+\begin{tikzcd}
+H_n \arrow[r, hook, "i_n"] \arrow[d, "\rho_n"] &
+H_{n+1} \arrow[r, hook, "i_{n+1}"] \arrow[d, "\rho_{n+1}"] &
+H_{n+2} \arrow[r, hook] \arrow[d, "\rho_{n+2}"] &
+\cdots \\
+O_n \arrow[r, hook] &
+O_{n+1} \arrow[r, hook]  &
+O_{n+2} \arrow[r, hook] &
+\cdots
+\end{tikzcd}
+\tag{3.25}
+\]
+in which squares are pullbacks. Furthermore, any two choices of stabilization the above are isomorphic.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+    Theorem~3.16 shows that, for $n\geq3$, the symmetry group $H_n$ is determined by dimension-independent internal data. If $\operatorname{im}(\rho_n)=SO_n$, then
+    \[
+        H_n
+        \cong
+        \frac{\operatorname{Spin}_n\times K}
+        {\langle(-1,k_0)\rangle}.
+    \]
+    We stabilize by using the standard inclusion $\operatorname{Spin}_n\hookrightarrow\operatorname{Spin}_{n+1}$ and the identity on $K$. This gives $H_n\hookrightarrow H_{n+1}.$ If $\operatorname{im}(\rho_n)=O_n$, Theorem 4.3 instead gives a dimension-independent extension
+    \[
+        1\to K\to J\to\{\pm1\}\to1
+    \]
+    and realizes $\widetilde H_n$ as the pullback of $J$ along $\operatorname{Pin}_n^+\to\{\pm1\}.$ We stabilize by using $\operatorname{Pin}_n^+
+        \hookrightarrow
+        \operatorname{Pin}_{n+1}^+$ while keeping $J$ fixed.  Quotienting by $\langle(-1,k_0)\rangle$ gives $H_n\hookrightarrow H_{n+1}.$ In both cases the construction is compatible with the standard inclusion $O_n\hookrightarrow O_{n+1}$ and the resulting squares are pullbacks. Since the data $K$, $k_0$, and, $J$ are independent of $n$, any two such stabilizations are isomorphic. Thus
+    \[
+        H_n\hookrightarrow H_{n+1}\hookrightarrow H_{n+2}
+        \hookrightarrow\cdots
+    \]
+    gives the desired stabilization.
+\end{proof}
+
+Note that $K = \ker \rho_n$ is independent of $n$. Thus this theorem allows us to extend the notion of symmetry groups in QFT to all dimensions. This creates a notion of "Spin Theories", "Pin$^+$ theories, "SO Theoreis" etc. independent of dimension by, for example, setting \[
+H = \colim_{n \to \infty} H_n
+\]
+
+\begin{definition}[Definition 3.27]
+The homomorphism
+\[
+\rho : H \longrightarrow O
+\]
+is called the symmetry type and is denoted by $(H,\rho)$.
+\end{definition}
+
+The stabilization therefore allows us to regard the symmetry data as a single dimension-independent object $(H,\rho)$ where
+
+\[H=\varinjlim_{n}H_n,\qquad
+    \rho:H\longrightarrow O=\varinjlim_n O_n.
+\]
+The finite-dimensional symmetry types $(H_n,\rho_n)$ are recovered by pullback along $O_n\hookrightarrow O$. Hence, we also use the term ``symmetry type'' for the pair $(H_n,\rho_n)$ in our $n$-dimensional QFT.
+
+
+\begin{remark}
+The symmetry type $(H,\rho)$ encodes the full symmetry group $H$ together with its action on the spacetime symmetry group $O$. The finite-dimensional pairs $(H_n,\rho_n)$ obtained by the pullback thus contain enough information to reconstruct the full symmetry type.
+\end{remark}
+
+We can now return to the original goal of describing a quantum field
+theory geometrically. At the beginning of the lecture, a field theory was packaged as a
+symmetric monoidal functor
+\[
+    F:
+    {\rm Bord}_{\langle n-1,n\rangle}
+    (\mathcal X_n^\nabla)
+    \longrightarrow
+    {\rm tVect}_{\mathbb C}.
+\]
+The bordism category records the geometric processes of the theory, while the functor $F$ assigns to them the corresponding physical data: state spaces, evolution maps, partition functions, and correlation functions. The symmetry group tells us how this functor behaves under changes of the background geometry. In particular, a symmetry type is a pair
+\[
+    (H,\rho),
+    \qquad
+    \rho:H\longrightarrow O,
+\]
+where $O$ is the stable Euclidean spacetime symmetry group and $H$ contains both the spacetime symmetries and the internal symmetries. The kernel
+\[
+    K=\ker(\rho)
+\]
+consists of symmetries which act trivially on spacetime, while the homomorphism $\rho$ records how the remaining symmetries act on the background geometry. Thus the symmetry type is additional structure on the field theory: it specifies which transformations of the geometric background are
+symmetries of the theory and how these transformations are lifted to the physical system. The stabilization
+\[
+    H_n\hookrightarrow H_{n+1}\hookrightarrow\cdots
+\]
+allows us to regard these symmetry data as dimension-independent:
+\[
+    H=\varinjlim_n H_n,
+    \qquad
+    \rho:H\longrightarrow
+    O=\varinjlim_n O_n.
+\]
+Consequently, instead of studying a different symmetry group in every dimension, we can study a single stable symmetry type $(H,\rho)$ and
+recover its finite-dimensional manifestations by pullback. The overall picture of the lecture is therefore
+\[
+\mathbb M^n
+\rightsquigarrow
+\mathcal D
+\rightsquigarrow
+\mathbb E^n
+\rightsquigarrow
+X^n
+\]
+The role of the symmetry type is to constrain and organize the functorial data of the field theory. The bordism category tells us what geometric processes are possible, the functor $F$ tells us what physical data those processes produce, and the symmetry type $(H,\rho)$ tells us which spacetime and internal transformations preserve the theory. In this sense, the passage from Minkowski space through Wick rotation to a stable Euclidean symmetry type is not an additional piece of
+structure unrelated to the bordism formulation.  Rather, it explains the symmetry data that the functorial description of a quantum field theory is required to respect.
+
+\subsection{CRT}
+Proofs are provided in Appendix A. of [FH].
+\begin{statement}[Complex double covers of $O_n(\C)$] (Prop.~A.11) ${\rm Pin}^{\pm}_n(\C)$ are the unique complex Lie groups with
+        identity component ${\rm Spin}_n(\C)$ which double cover $O_n(\C)$ and contain
+        ${\rm Pin}^{\pm}_n$ as maximal compact subgroups. Any complex Lie group double
+        covering $O_n(\C)$ with identity component isomorphic to ${\rm Spin}_n(\C)$ is
+        isomorphic to ${\rm Pin}^{+}_n(\C)$ or ${\rm Pin}^{-}_n(\C)$.
+\end{statement}
+
+\begin{definition}[$\alpha$- and $\beta$-double covers]
+    Let $\mu_m\subset\C^{\times}$ be the $m$th roots of unity, and let
+    $\pi_2\colon{\rm Spin}_n(\C)\to SO_n(\C)$ and
+    $\pi_4\colon{\rm Spin}_n(\C)\times_{\mu_2}\mu_4\to SO_n(\C)$ be the projections;
+    \begin{equation}
+        \begin{tikzcd}
+        	{{\rm Spin}_n(\C)} && {{\rm Spin}_n(\C)\times_{\mu_2}\mu_4} \\
+        	\\
+        	& {{\rm SO}_n(\C)}
+        	\arrow[hook, from=1-1, to=1-3]
+        	\arrow["{\pi_2}"', from=1-1, to=3-2]
+        	\arrow["{\pi_4}", from=1-3, to=3-2]
+        \end{tikzcd}
+    \end{equation}
+    let
+    \begin{align*}
+        \widetilde{SO}^{\alpha}_{1,n-1} &:= \pi_2^{-1}(SO_{1,n-1}), \\
+        \widetilde{SO}^{\beta}_{1,n-1} &:= {\rm Spin}_{1,n-1}\ \cup\
+          \Bigl(\pi_4^{-1}(SO^{\downarrow}_{1,n-1})\setminus\pi_2^{-1}(SO^{\downarrow}_{1,n-1})\Bigr).
+    \end{align*}
+    Similarly for ${\rm Pin}^{\pm}_n(\C)$ over $O_n(\C)$;
+    \begin{equation}
+        \begin{tikzcd}
+        	{{\rm Pin^{\pm}}_n(\C)} && {{\rm Pin^{\pm}}_n(\C)\times_{\mu_2}\mu_4} \\
+        	\\
+        	& {{\rm O}_n(\C)}
+        	\arrow[hook, from=1-1, to=1-3]
+        	\arrow["{\pi_{2\pm}}"', from=1-1, to=3-2]
+        	\arrow["{\pi_{4\pm}}", from=1-3, to=3-2]
+        \end{tikzcd}
+    \end{equation}
+    let
+    \begin{align*}
+        \widetilde{O}^{\alpha}_{n-1,1} &\coloneqq \pi_{2+}^{-1}(O_{1,n-1}), \\
+        \widetilde{O}^{\beta}_{n-1,1}  &\coloneqq \pi_{2+}^{-1}\bigl(O^{\uparrow}_{1,n-1}\bigr)\ \cup\
+          \Bigl(\pi_{4+}^{-1}\bigl(O^{\downarrow}_{1,n-1}\bigr)\setminus
+                 \pi_{2+}^{-1}\bigl(O^{\downarrow}_{1,n-1}\bigr)\Bigr),
+    \end{align*}
+    and
+    \begin{align*}
+        \widetilde{O}^{\alpha}_{1,n-1} &\coloneqq \pi_{2-}^{-1}(O_{1,n-1}), \\
+        \widetilde{O}^{\beta}_{1,n-1}  &\coloneqq \pi_{2-}^{-1}\bigl(O^{\uparrow}_{1,n-1}\bigr)\ \cup\
+          \Bigl(\pi_{4-}^{-1}\bigl(O^{\downarrow}_{1,n-1}\bigr)\setminus
+                 \pi_{2-}^{-1}\bigl(O^{\downarrow}_{1,n-1}\bigr)\Bigr),
+    \end{align*}
+\end{definition}
+
+\begin{remark}[Difference of $\alpha$- and $\beta$- double cover]
+    Distinction of $\alpha$ and $\beta$ comes from the order of time-reversal elements, such as $g={\rm diag}(-1,-1,1,\dots,1)$. In $\alpha$ double cover, such elements lift to an order $4$ element. However, in the $\beta$ double cover, such elements are paired with the fourth roots of unity, and therefore are of order $2$.
+\end{remark}
+
+\begin{statement}[Classification of Lorentz double covers, Prop.~A.15]
+Lorentz double covers can thus be classified as follows:
+    \begin{enumerate}
+        \item Every double cover of $SO_{1,n-1}$ whose identity component is isomorphic to
+        ${\rm Spin}_{1,n-1}$ is isomorphic to $\widetilde{SO}^{\alpha}_{1,n-1}$ or
+        $\widetilde{SO}^{\beta}_{1,n-1}$.
+        \item $\widetilde{SO}^{\beta}_{1,n-1}$ is a subgroup of the even subalgebras of both
+        ${\rm Cliff}_{n-1,1}$ and ${\rm Cliff}_{1,n-1}$.
+        \item $\widetilde{O}^{\beta}_{n-1,1}$ and $\widetilde{O}^{\beta}_{1,n-1}$ are subgroups
+        of ${\rm Cliff}_{n-1,1}$ and ${\rm Cliff}_{1,n-1}$ respectively, and
+        \[ {\rm Pin}_{n-1,1}\cong\widetilde{O}^{\beta}_{n-1,1},\qquad
+           {\rm Pin}_{1,n-1}\cong\widetilde{O}^{\beta}_{1,n-1}. \]
+    \end{enumerate}
+    The $\alpha$-double covers are subgroups of {\bf complex (s)pin groups}; the
+    $\beta$-double covers are subgroups of {\bf Lorentz signature Clifford algebras}.
+\end{statement}
+
+
+
+\begin{definition}[$\alpha$- and $\beta$-extensions of general symmetry types]
+    Let $(H_{1,n-1},\rho_n)$ be a Lorentz signature symmetry type, $\rho_n\colon H_{1,n-1}\to
+    O^{\uparrow}_{1,n-1}$, with internal group $K$ and central element $k_0\in K$ as in
+    \todo{which theorem in our note?}. Set
+    \[ SH^{\alpha/\beta}_{1,n-1}:=\widetilde{SO}^{\alpha/\beta}_{1,n-1}\times K\big/
+       \bigl\langle(-1,k_0)\bigr\rangle. \]
+    If ${\rm im}\,\rho_n=SO^{\uparrow}_{1,n-1}$, set $H^{\alpha/\beta}_{1,n-1}
+    :=SH^{\alpha/\beta}_{1,n-1}$. If $\rho_n$ is surjective, define
+    $\widetilde H^{\alpha/\beta}_{1,n-1}$ by the pullback diagram:
+    \begin{equation}
+        \begin{tikzcd}
+        	1 & K & {\widetilde{H}^{\alpha/\beta}_{1,n-1}} & {\widetilde{O}^{\alpha/\beta}_{n-1,1}} & 1 \\
+        	1 & K & J & {\{\pm1\}} & 1 \\
+        	&& 1 & 1
+        	\arrow[from=1-1, to=1-2]
+        	\arrow[from=1-2, to=1-3]
+        	\arrow["{||}", from=1-2, to=2-2]
+        	\arrow[from=1-3, to=1-4]
+        	\arrow[from=1-3, to=2-3]
+        	\arrow[from=1-4, to=1-5]
+        	\arrow["\det", from=1-4, to=2-4]
+        	\arrow[from=2-1, to=2-2]
+        	\arrow[from=2-2, to=2-3]
+        	\arrow[from=2-3, to=2-4]
+        	\arrow[from=2-3, to=3-3]
+        	\arrow[from=2-4, to=2-5]
+        	\arrow[from=2-4, to=3-4]
+        \end{tikzcd}
+    \end{equation}
+    , and define
+    \[ H^{\alpha/\beta}_{1,n-1}:=\widetilde H^{\alpha/\beta}_{1,n-1}\big/
+       \bigl\langle(-1,k_0)\bigr\rangle. \]
+    One has ${\rm Spin}^{\alpha/\beta}_{1,n-1}\cong\widetilde{SO}^{\alpha/\beta}_{1,n-1}$, and
+    $H^{\alpha}_{1,n-1}$ is a real subgroup of $H_n(\C)$, namely the inverse image of
+    $O_{1,n-1}$ under $\rho_n\colon H_n(\C)\to O_n(\C)$.
+\end{definition}
+
+\begin{statement}[Extensions of real representations, Prop.~A.20]
+    Let $R=R^0\oplus R^1$ be a $\Z/2\Z$-graded real representation of $H_{1,n-1}$ on which
+    $k_0\in K$ acts as the grading operator, and let $R_{\C}=R\otimes_{\R}\C$, which carries an
+    action of $H_n(\C)$ and hence of $H^{\alpha}_{1,n-1}$.
+    \begin{enumerate}
+        \item If $h\in H^{\alpha}_{1,n-1}\setminus H_{1,n-1}$, then $h(R^0)=R^0$ and
+        $h(R^1)=\sqrt{-1}\,R^1$.
+        \item The action of $H_{1,n-1}$ on $R$ extends canonically to $H^{\beta}_{1,n-1}$.
+    \end{enumerate}
+    All groups here are ungraded, so act by even transformations; the conclusion is that the
+    $\beta$-extension acts on {\it real} representations of $H_{1,n-1}$.
+\end{statement}
+
+\begin{theorem}[CRT Theorem, {[FH, Thm.~A.23]}]
+    Let $\mathcal{Q}$ denote a relativistic quantum field theory with symmetry group
+    $H_{1,n-1}$. Then the symmetry extends to $H^{\beta}_{1,n-1}$; elements of
+    $H^{\beta}_{1,n-1}\setminus H_{1,n-1}$ act antilinearly.
+\end{theorem}
+
+\todo{State CRT --> although we assumed only the time order preserving symmetry actions, we end up with $T$ element}
+
+\todo{CRT Proof...}
+
+\section{Wick-Rotated Field Theory on Compact Manifolds}
+
+The last stage in our progression for this lecture is the transition from
+\[
+\mathbb{E}^n \rightsquigarrow X^n,
+\]
+that is, from Euclidean space to general curved manifolds. There is a standard differential-geometric construction which associates to a homomorphism
+\[
+\rho_n:H_n\longrightarrow O_n
+\]
+the notion of a differential $H_n$-structure on an $n$-manifold. We review this construction in Appendix B. For the purposes of this lecture, we apply this construction to the Euclidean field theory of the previous section. This allows us to
+replace Euclidean space by arbitrary curved manifolds equipped with the appropriate geometric structure, and leads naturally to the axiomatic formulation of field theory.
+
+\\
+
+
+For now, we apply that same logic to our Euclidean field theory in section 4 to arrive at Axiom 1.\\
+
+For a theory with symmetry type $(H_n,\rho_n)$, the final ingredient is to replace a fixed background spacetime by arbitrary manifolds equipped with a differential $H_n$-structure. The appropriate domain for the
+Wick-rotated theory is therefore the bordism category
+\[
+\operatorname{Bord}_{\langle n-1,n\rangle}(H_n^\nabla),
+\]
+whose objects are $(n-1)$-dimensional manifolds equipped with differential
+$H_n$-structure and whose morphisms are $n$-dimensional manifolds with
+differential $H_n$-structure that provide bordisms between these
+$(n-1)$-dimensional manifolds.\\
+
+More concretely, an object of $\operatorname{Bord}_{\langle n-1,n \rangle}(H_n^\nabla)$ is a closed $(n-1)$-manifold $Y_0$ together with the geometric structure determined by
+$(H_n,\rho_n)$. A morphism
+\[
+Y_0 \longrightarrow Y_1
+\]
+is represented by an $n$-dimensional manifold $X$ whose boundary is
+identified with
+\[
+\partial X \cong Y_0 \sqcup Y_1,
+\]
+together with a differential $H_n$-structure on $M$ which restricts to the
+given structures on the boundary. Composition of morphisms is given by
+gluing bordisms along their common boundary.\\
+
+As discussed earlier, the functor $F$ encodes the basic physical data of the
+Wick-rotated theory. The vector spaces $F(\Sigma)$ encode the spaces of
+states associated to spatial manifolds, while the linear maps associated to bordisms encode the corresponding amplitudes and correlation functions.
+Observables and their correlation functions can therefore be understood as
+part of the functorial structure rather than as additional independent
+axioms.\\
+
+This completes the progression from ordinary relativistic quantum field
+theory to the geometric formulation of the Axiom System. Schematically, the
+successive enlargements of the class of allowed backgrounds are
+\[
+\mathbb{M}^n
+\rightsquigarrow
+\mathcal{D}^n
+\rightsquigarrow
+\mathbb{E}^n
+\rightsquigarrow
+X^n,
+\]
+where $\mathbb{M}^n$ denotes Minkowski spacetime, $\mathcal{D}^n$ denotes the complexified setting, $\mathbb{E}^n$ denotes Euclidean space, and $X^n$ denotes a general curved $n$-manifold equipped with the appropriate differential $H_n$-structure.
+
+One can therefore view the Axiom System as progressively removing the
+dependence of the theory on a particular background. Instead of beginning
+with a theory defined only on Minkowski space, we allow the theory to be
+defined on increasingly general geometric objects. The symmetry type
+$(H_n,\rho_n)$ specifies the local geometric structure that the theory is
+allowed to see, while the bordism category organizes all such manifolds and
+their gluings into a single categorical framework.\\
+
+Ideally, one would like a reconstruction theorem which reverses the
+progression done in this lecture  showing that sufficiently general geometric and categorical data determine the original physical theory. Such a theorem would provide a precise mathematical explanation for how the usual formulation of quantum field theory on Minkowski spacetime can be recovered from the more abstract Axiom System. At present, however, this should be regarded as a structural goal rather than a general theorem.
+
+\begin{appendices}
+\section{Real Pin group and Spin group}
+We can consider a group Hom $O_{1,n-1} \to \Z_2\times \Z_2$ where the first part extracts the sign of $0,0$ component of the matrix and the second part extracts the sign of the determinant of the lower right $(n-1) \times (n-1)$ block (Isometry guarantees that neither is zero). From this, it is not too hard to realize that 
+\begin{align*}
+    O_{1,n-1} = SO^{\uparrow}_{1,n-1}\times \Z_2 \times \Z_2     
+\end{align*}
+where $SO^{\uparrow}_{1,n-1}$ is the identity component, the first copy of $\Z_2$ is generated by $T \coloneqq {\rm diag}(-1,1,\dots 1)$ and the second copy is generated by $R \coloneqq {\rm diag}(1,-1, 1, \dots 1)$. 
+
+\begin{definition}[Clifford Algebra]
+    Clifford algebra of a vector space $V$ over field ${\mathbb K}$ (characteristic $\neq 2$), induced by a quadratic form $q$ is 
+    \begin{equation}
+        {\rm Cl}(V,q)=T(V)/(v\otimes v -q(v)) 
+    \end{equation}
+    where $T(V)$ is the tensor algebra of $V$. 
+\end{definition}
+For a Real Clifford algebra, we denote the signature of $q$ as ${\rm Cl}_{a,b}$. For an example, ${\rm Cl}_{1,n-1}$ is defined from 
+\begin{align*}
+    e_0^2=-1, ~ e_1^2=e_2^2=\dots =e_{n-1}^2=1    
+\end{align*}
+
+\begin{definition}[Clifford Group]
+    Define $\alpha$ to be the automorphism that is induced by ${-1}$ acting on the vector space $V$. That is, $\alpha$ acts by ${-1}$ on ${\rm Cl}^{1}$ and $1$ on ${\rm Cl}^{0}$. The grading is decided by the degree (mod 2) of the spanning sets. The Clifford group $\Gamma_V$ is the group of homogeneous invertible elements $x$ of the Clifford algebra such that $\alpha(x)Vx^{-1}\subset V$. Also this defines the group action of $\Gamma_V$ on $V$. 
+\end{definition}
+\begin{remark}
+    An element $v \in V$ acts on $V$ as a reflection through $v$. 
+\end{remark}
+\begin{remark}
+    An element of $\Gamma_V$ is a monomial of form $v_1v_2\dots v_n$. It acts trivially on $V$ iff it is in ${\mathbb K}^{\times}$. 
+\end{remark}
+
+From a construction akin to Euler angle, it is evident that a $O_V$ is generated by some rotations in $2$d planes and reflections. Moreover, any rotations in $2$d planes are generated by reflections. Therefore, $O_V$ is generated by reflections. \footnote{Here reflections refer to multiplying only one of the coordinates by ${-1}$, leaving the rest the same.} Therefore, we have a central group extension:
+\begin{equation}
+    \begin{tikzcd}
+    	1 & {\mathbb{K}^{\times}} & {\Gamma_V} & {O_V} & 1
+    	\arrow[from=1-1, to=1-2]
+    	\arrow[from=1-2, to=1-3]
+    	\arrow[from=1-3, to=1-4]
+    	\arrow[from=1-4, to=1-5]
+    \end{tikzcd}
+\end{equation}
+
+\begin{definition}[Spinor Norm]
+    Let $-^t$ be an anti-automorphism extended from the identity map of $V$, so that $(v_1v_2)^t=v_2v_1$ for $v_i \in V$. Then, the spinor norm is defined as $N(x)=x^tx$ for $x \in {\rm Cl}$.
+\end{definition}
+\begin{remark}
+    For a spanning element of $v=v_1v_2\dots v_n$, $N(v)=q(v_1)q(v_2)\dots q(v_n)$. Moreover, restriction of $N$ to $\Gamma_V$ is a homomorphism to  ${\mathbb K}^{\times}$
+\end{remark}
+We start by considering Real Clifford algebras, and real pin, spin groups of them. We assume that the signature of quadratic form is either {\bf Lorentzian} or {\bf Euclidean}. 
+\begin{definition}[Real Pin Group]
+    Pin group is the kernel of $|N|:\Gamma_N \to \Real^{>0}$.
+\end{definition}
+\begin{definition}[Spin Group]
+    Spin group consists of the even elements of ${\rm Pin}$, i.e. ${\rm Spin}={\rm Cl}^{0}\cap {\rm Pin}$
+\end{definition}
+In particular, a Real Pin group fits into the following commutative diagrams where each nodes are exact.
+\begin{equation}
+\begin{tikzcd}
+	& 1 & 1 & 1 & \\
+	1 & {\pm 1} & {{\rm Pin}} & {O_V(\R)} & 1 \\
+	1 & {{\mathbb R}^{\times}} & {\Gamma_V} & {O_V(\R)} & 1 \\
+	1 & {\mathbb{R}^{>0}} & {\mathbb{R}^{>0}} & 1 \\
+	& 1 & 1
+	\arrow[from=1-2, to=2-2]
+	\arrow[from=1-3, to=2-3]
+	\arrow[from=1-4, to=2-4]
+	\arrow[from=2-1, to=2-2]
+	\arrow[from=2-2, to=2-3]
+	\arrow[from=2-2, to=3-2]
+	\arrow[from=2-3, to=2-4]
+	\arrow[from=2-3, to=3-3]
+	\arrow[from=2-4, to=2-5]
+	\arrow[from=2-4, to=3-4]
+	\arrow[from=3-1, to=3-2]
+	\arrow[from=3-2, to=3-3]
+	\arrow["{|N|}", from=3-2, to=4-2]
+	\arrow[from=3-3, to=3-4]
+	\arrow["{|N|}", from=3-3, to=4-3]
+	\arrow[from=3-4, to=3-5]
+	\arrow[from=3-4, to=4-4]
+	\arrow[from=4-1, to=4-2]
+	\arrow[from=4-2, to=4-3]
+	\arrow[from=4-2, to=5-2]
+	\arrow[from=4-3, to=4-4]
+	\arrow[from=4-3, to=5-3]
+\end{tikzcd}
+\end{equation}
+
+As evident in this diagram, ${\rm Pin}$ is a {\bf double cover} of $O_V({\R})$. Similarly, it is not too hard to see that ${\rm Spin}$ is a double cover of the identity component of $O_V(\R)$.
+
+\begin{definition}[${\rm Pin}^{\pm}_n$]
+    We define ${\rm Pin}^{+}_n$ from a positive definite ${\rm Cl}_{0,n}$ and ${\rm Pin}^{-}_n$ from a negative definite ${\rm Cl}_{n,0}$. They define the group extensions
+    \begin{equation*}
+        1 \to \{\pm 1\} \to {\rm Pin}^{\pm}_n \to O_n \to 1
+    \end{equation*}
+\end{definition}
+\begin{remark}
+    ${\rm Pin}^{\pm}$ can be distinguished from the fact that the lift of a reflection $O_n$ squares to ${\pm 1}$ respectively. In particular, ${\rm Pin}^+_1 = \Z_2 \times \Z_2$ and ${\rm Pin}^-_1 = \Z_4$.
+\end{remark}
+
+\section{Affine to Curved Geometry}
+
+We begin with affine geometry. Let $\mathbb{A}^n$ denote an $n$-dimensional
+affine space. Unlike a vector space, an affine space does not have a
+distinguished origin, but it has a simply transitive action of its translation
+group $\mathbb{R}^n$. Its symmetry group is therefore the affine group
+\[
+1 \longrightarrow \mathbb{R}^n
+\longrightarrow \operatorname{Aff}_n
+\longrightarrow \operatorname{GL}_n(\mathbb{R})
+\longrightarrow 1.
+\]
+More generally, a translationally invariant geometric structure on
+$\mathbb{A}^n$ has a symmetry Lie group:
+\[
+\begin{tikzcd}
+1 \arrow[r] &
+\mathbb{R}^n \arrow[r] \arrow[d, equal] &
+\mathcal{H}_n \arrow[r] \arrow[d] &
+H_n \arrow[r] \arrow[d, "\rho_n"] &
+1 \\
+1 \arrow[r] &
+\mathbb{R}^n \arrow[r] &
+\operatorname{Aff}_n \arrow[r] &
+\operatorname{GL}_n(\mathbb{R}) \arrow[r] &
+1.
+\end{tikzcd}
+\]
+With the pair
+\[
+(H_n,\rho_n), \qquad
+\rho_n:H_n\longrightarrow \operatorname{GL}_n(\mathbb{R}),
+\]
+defining the Cartan symmetry type of the geometric structure. In contrast to the quantum field theory setting in last section, $H_n$ need not be compact, and the target of $\rho_n$ is $\operatorname{GL}_n(\mathbb{R})$ rather than $O_n$.\\
+
+The basic examples are summarized by the following table:
+\[
+\begin{array}{c|c|c}
+H_n & \text{Affine geometry} & \text{Curved geometry} \\ \hline
+O_n & \text{Euclidean} & \text{Riemannian} \\
+O_{1,n-1} & \text{Minkowskian} & \text{Lorentzian} \\
+Sp_{n/2}(\mathbb{R}) & \text{symplectic} & \text{symplectic} \\
+GL_{n/2}(\mathbb{C}) & \text{complex} & \text{complex} \\
+U_{n/2} & \text{Hermitian} & \text{Kähler} \\
+{\rm Spin}_n & \text{spin} & \text{spin}
+\end{array}
+\]
+Internal symmetry groups can also be incorporated into this framework, though they are not done here or in [F].\\
+
+The transition from affine to curved geometry can be understood in terms of
+parallelism. Affine geometry has a global parallelism, encoded by the
+simply transitive action of the translation group $\mathbb{R}^n$. On a general
+manifold, there is no canonical way to identify tangent spaces at distinct
+points. The curved analogue of global parallelism is therefore ``infinitesimal parallelism'', encoded by an affine connection. More
+precisely, an affine connection on a smooth $n$-manifold $M$ is a connection
+on the principal $\operatorname{GL}_n(\mathbb{R})$-bundle of frames
+\[
+\mathcal{B}(M)\longrightarrow M.
+\]
+It is natural to require the affine connection to be torsionfree. In the special case where the image of $\rho_n$ lies in $O_n$, the resulting geometry is
+Riemannian and the unique torsionfree compatible connection is the Levi--Civita connection.
+
+\begin{definition}
+Let $M$ be a smooth $n$-manifold. The frame bundle
+$\mathcal{B}(M)$ is the principal $\operatorname{GL}_n(\mathbb{R})$-bundle whose fiber over $p\in M$ is
+\[
+\mathcal{B}_p(M)
+=
+\left\{
+(e_1,\ldots,e_n)
+\;\middle|\;
+(e_1,\ldots,e_n)\text{ is a basis of }T_pM
+\right\}.
+\]
+\end{definition}
+
+We can now replace the global affine symmetry by a local geometric structure
+on a curved manifold. Let $(H_n,\rho_n)$ be a Cartan symmetry type, where
+\[
+\rho_n:H_n\longrightarrow\operatorname{GL}_n(\mathbb{R})
+\]
+is a homomorphism. The group $H_n$ specifies the allowed local symmetries,
+while $\rho_n$ describes how these symmetries act on the tangent space.
+
+\begin{definition}[Differential $H_n$-structure]
+Let $(H_n,\rho_n)$ be a Cartan symmetry type. A \emph{differential
+$H_n$-structure} on a smooth $n$-manifold $M$ is a triple
+\[
+(P,\Theta,\varphi),
+\]
+where $P\to M$ is a principal $H_n$-bundle equipped with a connection
+$\Theta$, and
+\[
+\varphi:\mathcal{B}(M)\longrightarrow \rho_n(P)
+\]
+is an isomorphism of principal $\operatorname{GL}_n(\mathbb{R})$-bundles
+such that the induced connection
+\[
+\varphi^*\rho_n(\Theta)
+\]
+is torsionfree.
+\end{definition}
+
+Thus, the affine picture provides the model geometry and its global symmetry
+group, while a differential $H_n$-structure replaces this global symmetry by
+an infinitesimal symmetry acting on each tangent space. The study of
+$H_n$-geometry is then the study of the invariants of smooth manifolds
+equipped with such structures and their diffeomorphisms.
+
+\end{appendices}
+
+\section{References}
+
+\begin{center}
+
+\small
+\textbf{Sources.}\\
+
+[F] D.~Freed, \emph{Lectures on Field Theory and Topology} (CBMS 133), Lectures 1--3 (the ``Bordisms \& QFTs'' notes).\quad
+
+[FH] D.~Freed--M.~Hopkins, \emph{Reflection positivity and invertible topological phases}, \S2 (source of the proofs in \S3.4 below).
+
+[B] Richard.~Borcherds, \emph{Lecture notes on Lie Groups and Lie Algebras}
+
+[BMS] S.~Bunk, J.~MacManus, and A.~Schenkel, \emph{Lorentzian bordisms in algebraic quantum field theory}, \emph{Letters in Mathematical Physics} \textbf{115} (2025), no.~1, 16, pp.~1--43. DOI: \href{https://doi.org/10.1007/s11005-025-01906-3}{10.1007/s11005-025-01906-3}.
+\\
+\end{center}
+\end{document}
