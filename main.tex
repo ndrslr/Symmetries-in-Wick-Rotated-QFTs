@@ -445,19 +445,24 @@ Lorentz (spin) part of the spacetime symmetry after passing to the quotient by t
 were quotiented out in defining $H_n$, the map of Theorem~4.4 gives heuristically
 \[
   \mathbb R^{1,n-1}\rtimes\Spin_{1,n-1}
-  \longrightarrow \mathcal{H}_{1,n-1},
+  \longrightarrow \mathcal{G}_{1,n-1},
 \]
-i.e.\ the usual action of the (spin cover of the) Poincaré group on the full symmetry group of the Minkowski theory.  In particular, the statement that $-1\in\Spin_n$ maps to $k_0\in K$ becomes, after anti-Wick rotation, the familiar
-fact that the central element of the Lorentz spin group can act as an internal symmetry (e.g.\ $(-1)^F$) on the theory.\\
+i.e.\ the usual action of the (spin cover of the) Poincaré group on the full symmetry group of the Minkowski theory.  In particular, we can produce the usual construction in QFT which assumes that the Poincar\'e group is a subgroup of $\mathcal{G}_{1,n-1}$ mentioned earlier.\\
 
-Finally, Part $(4.)$ describes the additional structure that appears when orientation-reversing symmetries are present.  In this case the orientation-reversing part is controlled by a group extension
+Finally, Part $(4.)$ describes the additional structure that appears when orientation-reversing symmetries are present. In this case the orientation-reversing part is controlled by a group extension
 \[
 1\longrightarrow K\longrightarrow J\longrightarrow\{\pm1\}
 \longrightarrow1,
 \]
-which is independent of $n$.  Thus the connected symmetry group splits after passing to the spin double cover, while the extension $J$ records
-the additional information carried by orientation-reversing symmetries.
-\\
+which is independent of $n$. Thus the connected symmetry group splits after passing to the spin double cover, while the extension $J$ records
+the additional information carried by orientation-reversing symmetries.\\
+
+\begin{remark}
+    For part 2, in the event $n = 2$, we only get 
+    \[
+        \widetilde{SH}_2 \cong \operatorname{Spin}_2 \rtimes \; K.
+    \]
+\end{remark}
 
 The full proof of Theorem 4.3 is contained in [FH]. Though we give brief sketches of parts 1 and 2:
 
@@ -585,6 +590,8 @@ the image of the central element $-1\in\mathrm{Spin}_n$. The remaining cases
 give the five basic symmetry types below.
 \end{proof}
 
+\vspace{0.2cm}
+
 \begin{table}[h]
     \centering
     \begin{tabular}{c|c|c|c}
@@ -608,6 +615,7 @@ give the five basic symmetry types below.
     \caption{The five basic symmetry types.}
     \label{tab:symmetry-types}
 \end{table}
+
 
 Below, we introduce an idea of a stabilization of $H_n$, the main structure result needed about symmetry groups in QFT.
 
@@ -654,7 +662,7 @@ in which squares are pullbacks. Furthermore, any two choices of stabilization th
     gives the desired stabilization.
 \end{proof}
 
-Note that $K = \ker \rho_n$ is independent of $n$. Thus this theorem allows us to extend the notion of symmetry groups in QFT to all dimensions. This creates a notion of "Spin Theories", "Pin$^+$ theories, "SO Theoreis" etc. independent of dimension by, for example, setting \[
+Note that $K = \ker \rho_n$ is independent of $n$. Thus this theorem allows us to extend the notion of symmetry groups in QFT to all dimensions. This creates a notion of ``Spin Theories", ``Pin$^+$ theories, ``SO Theoreis" etc. independent of dimension by, for example, setting \[
 H = \colim_{n \to \infty} H_n
 \]
 
@@ -668,8 +676,8 @@ is called the symmetry type and is denoted by $(H,\rho)$.
 
 The stabilization therefore allows us to regard the symmetry data as a single dimension-independent object $(H,\rho)$ where
 
-\[H=\varinjlim_{n}H_n,\qquad
-    \rho:H\longrightarrow O=\varinjlim_n O_n.
+\[H=\colim_{n \to \infty}H_n,\qquad
+    \rho:H\longrightarrow O=\colim_{n \to \infty} O_n.
 \]
 The finite-dimensional symmetry types $(H_n,\rho_n)$ are recovered by pullback along $O_n\hookrightarrow O$. Hence, we also use the term ``symmetry type'' for the pair $(H_n,\rho_n)$ in our $n$-dimensional QFT.
 
@@ -688,41 +696,7 @@ symmetric monoidal functor
     \longrightarrow
     {\rm tVect}_{\mathbb C}.
 \]
-The bordism category records the geometric processes of the theory, while the functor $F$ assigns to them the corresponding physical data: state spaces, evolution maps, partition functions, and correlation functions. The symmetry group tells us how this functor behaves under changes of the background geometry. In particular, a symmetry type is a pair
-\[
-    (H,\rho),
-    \qquad
-    \rho:H\longrightarrow O,
-\]
-where $O$ is the stable Euclidean spacetime symmetry group and $H$ contains both the spacetime symmetries and the internal symmetries. The kernel
-\[
-    K=\ker(\rho)
-\]
-consists of symmetries which act trivially on spacetime, while the homomorphism $\rho$ records how the remaining symmetries act on the background geometry. Thus the symmetry type is additional structure on the field theory: it specifies which transformations of the geometric background are
-symmetries of the theory and how these transformations are lifted to the physical system. The stabilization
-\[
-    H_n\hookrightarrow H_{n+1}\hookrightarrow\cdots
-\]
-allows us to regard these symmetry data as dimension-independent:
-\[
-    H=\varinjlim_n H_n,
-    \qquad
-    \rho:H\longrightarrow
-    O=\varinjlim_n O_n.
-\]
-Consequently, instead of studying a different symmetry group in every dimension, we can study a single stable symmetry type $(H,\rho)$ and
-recover its finite-dimensional manifestations by pullback. The overall picture of the lecture is therefore
-\[
-\mathbb M^n
-\rightsquigarrow
-\mathcal D
-\rightsquigarrow
-\mathbb E^n
-\rightsquigarrow
-X^n
-\]
-The role of the symmetry type is to constrain and organize the functorial data of the field theory. The bordism category tells us what geometric processes are possible, the functor $F$ tells us what physical data those processes produce, and the symmetry type $(H,\rho)$ tells us which spacetime and internal transformations preserve the theory. In this sense, the passage from Minkowski space through Wick rotation to a stable Euclidean symmetry type is not an additional piece of
-structure unrelated to the bordism formulation.  Rather, it explains the symmetry data that the functorial description of a quantum field theory is required to respect.
+The role of the symmetry type is to constrain and organize the functorial data of the field theory. The bordism category tells us what geometric processes are possible, the functor $F$ tells us what physical data those processes produce, and the symmetry type $(H,\rho)$ tells us which spacetime and internal transformations preserve the theory. In this sense, the passage from Minkowski space through Wick rotation to a stable Euclidean symmetry type explains the symmetry data that the functorial description of a quantum field theory is required to respect. The stabilization allows us to regard these symmetry data as dimension-independent.
 
 \subsection{CRT}
 Proofs are provided in Appendix A. of [FH].
@@ -882,14 +856,9 @@ For now, we apply that same logic to our Euclidean field theory in section 4 to 
 For a theory with symmetry type $(H_n,\rho_n)$, the final ingredient is to replace a fixed background spacetime by arbitrary manifolds equipped with a differential $H_n$-structure. The appropriate domain for the
 Wick-rotated theory is therefore the bordism category
 \[
-\operatorname{Bord}_{\langle n-1,n\rangle}(H_n^\nabla),
+\operatorname{Bord}_{\langle n-1,n\rangle}(H_n^\nabla).
 \]
-whose objects are $(n-1)$-dimensional manifolds equipped with differential
-$H_n$-structure and whose morphisms are $n$-dimensional manifolds with
-differential $H_n$-structure that provide bordisms between these
-$(n-1)$-dimensional manifolds.\\
-
-More concretely, an object of $\operatorname{Bord}_{\langle n-1,n \rangle}(H_n^\nabla)$ is a closed $(n-1)$-manifold $Y_0$ together with the geometric structure determined by
+An object of $\operatorname{Bord}_{\langle n-1,n \rangle}(H_n^\nabla)$ is a closed $(n-1)$-manifold $Y_0$ together with the geometric structure determined by
 $(H_n,\rho_n)$. A morphism
 \[
 Y_0 \longrightarrow Y_1
@@ -897,22 +866,16 @@ Y_0 \longrightarrow Y_1
 is represented by an $n$-dimensional manifold $X$ whose boundary is
 identified with
 \[
-\partial X \cong Y_0 \sqcup Y_1,
+\partial X \cong \overline{Y_0} \sqcup Y_1,
 \]
-together with a differential $H_n$-structure on $M$ which restricts to the
-given structures on the boundary. Composition of morphisms is given by
+together with a differential $H_n$-structure on $X$ which restricts to the given structures on the boundary. Composition of morphisms is given by
 gluing bordisms along their common boundary.\\
 
 As discussed earlier, the functor $F$ encodes the basic physical data of the
-Wick-rotated theory. The vector spaces $F(\Sigma)$ encode the spaces of
-states associated to spatial manifolds, while the linear maps associated to bordisms encode the corresponding amplitudes and correlation functions.
-Observables and their correlation functions can therefore be understood as
-part of the functorial structure rather than as additional independent
-axioms.\\
+Wick-rotated theory. The vector spaces $F(Y)$ encode the spaces of
+states associated to spatial manifolds, while the linear maps associated to bordisms encode the corresponding amplitudes, evolution of state spaces, and correlation functions. Observables and their correlation functions can be extrapolated via the functorial structure with some additional structure not reviewed in this lecture.\\
 
-This completes the progression from ordinary relativistic quantum field
-theory to the geometric formulation of the Axiom System. Schematically, the
-successive enlargements of the class of allowed backgrounds are
+This completes the progression:
 \[
 \mathbb{M}^n
 \rightsquigarrow
@@ -920,20 +883,11 @@ successive enlargements of the class of allowed backgrounds are
 \rightsquigarrow
 \mathbb{E}^n
 \rightsquigarrow
-X^n,
+X^n(H_n^\nabla),
 \]
-where $\mathbb{M}^n$ denotes Minkowski spacetime, $\mathcal{D}^n$ denotes the complexified setting, $\mathbb{E}^n$ denotes Euclidean space, and $X^n$ denotes a general curved $n$-manifold equipped with the appropriate differential $H_n$-structure.
+where $\mathbb{M}^n$ denotes Minkowski spacetime, $\mathcal{D}^n$ denotes the complexified setting, $\mathbb{E}^n$ denotes Euclidean space, and $X^n(H_n^\nabla)$ denotes a general curved $n$-manifold equipped with the appropriate differential $H_n$-structure.\\
 
-One can therefore view the Axiom System as progressively removing the
-dependence of the theory on a particular background. Instead of beginning
-with a theory defined only on Minkowski space, we allow the theory to be
-defined on increasingly general geometric objects. The symmetry type
-$(H_n,\rho_n)$ specifies the local geometric structure that the theory is
-allowed to see, while the bordism category organizes all such manifolds and
-their gluings into a single categorical framework.\\
-
-Ideally, one would like a reconstruction theorem which reverses the
-progression done in this lecture  showing that sufficiently general geometric and categorical data determine the original physical theory. Such a theorem would provide a precise mathematical explanation for how the usual formulation of quantum field theory on Minkowski spacetime can be recovered from the more abstract Axiom System. At present, however, this should be regarded as a structural goal rather than a general theorem.
+Ideally, one would like a reconstruction theorem which reverses the progression done in this lecture  showing that sufficiently general geometric and categorical data determine the original physical theory. Such a theorem would provide a precise mathematical explanation for how the usual formulation of quantum field theory on Minkowski spacetime can be recovered from the more abstract Axiom System. At present, however, this should be regarded as a structural goal rather than a general theorem.
 
 \begin{appendices}
 \section{Real Pin group and Spin group}
@@ -1036,10 +990,23 @@ As evident in this diagram, ${\rm Pin}$ is a {\bf double cover} of $O_V({\R})$. 
 
 \section{Affine to Curved Geometry}
 
+\subsection*{B.1 Motivation: from Klein geometry to Cartan geometry}
+
+Before giving the formal definitions, it is worth isolating the guiding
+principle. Felix Klein's Erlangen program proposes that a geometry is
+specified by a homogeneous space $G/H$, where ``points'' are cosets, and geometric invariants which are the properties preserved by the transitive action of $G$. Affine space $\mathbb{A}^n$, with
+$G=\operatorname{Aff}_n$ and $H=\operatorname{GL}_n(\mathbb{R})$ is the basic example relevant here.\\
+
+Every point of $\mathbb{A}^n$ looks exactly like every other point, related by a global symmetry of $\mathbb{A}^n$. The passage to curved geometry replaces this global symmetry by an infinitesimal one. A general manifold $X$ need not admit any transitive symmetry group at all, but it is still be required to ``look" like $\mathbb{A}^n$ at each point, with the identification twisting from point to point in a manner controlled by a
+connection. This is the sense in which a differential $H_n$-structure is the curved analogue of the Cartan symmetry type $(H_n,\rho_n)$. The model geometry $\mathbb{A}^n$ is replaced by $X$, the global group $\mathcal G_n\subset\operatorname{Aff}_n$ is replaced by a principal $H_n$-bundle, and the simply transitive translation action is replaced by the frame bundle together with a torsion-free connection. The rest of this appendix makes this precise.
+
+\subsection*{B.2 Affine geometry and Cartan symmetry types}
+
 We begin with affine geometry. Let $\mathbb{A}^n$ denote an $n$-dimensional
 affine space. Unlike a vector space, an affine space does not have a
-distinguished origin, but it has a simply transitive action of its translation
-group $\mathbb{R}^n$. Its symmetry group is therefore the affine group
+distinguished origin, but it has a simply transitive action of its
+translation group $\mathbb{R}^n$. Its symmetry group is therefore the affine
+group
 \[
 1 \longrightarrow \mathbb{R}^n
 \longrightarrow \operatorname{Aff}_n
@@ -1047,12 +1014,12 @@ group $\mathbb{R}^n$. Its symmetry group is therefore the affine group
 \longrightarrow 1.
 \]
 More generally, a translationally invariant geometric structure on
-$\mathbb{A}^n$ has a symmetry Lie group:
+$\mathbb{A}^n$ has a symmetry Lie group $\mathcal G_n$ sitting in a map of extensions:
 \[
 \begin{tikzcd}
 1 \arrow[r] &
 \mathbb{R}^n \arrow[r] \arrow[d, equal] &
-\mathcal{H}_n \arrow[r] \arrow[d] &
+\mathcal{G}_n \arrow[r] \arrow[d] &
 H_n \arrow[r] \arrow[d, "\rho_n"] &
 1 \\
 1 \arrow[r] &
@@ -1067,9 +1034,11 @@ With the pair
 (H_n,\rho_n), \qquad
 \rho_n:H_n\longrightarrow \operatorname{GL}_n(\mathbb{R}),
 \]
-defining the Cartan symmetry type of the geometric structure. In contrast to the quantum field theory setting in last section, $H_n$ need not be compact, and the target of $\rho_n$ is $\operatorname{GL}_n(\mathbb{R})$ rather than $O_n$.\\
-
-The basic examples are summarized by the following table:
+defining the Cartan symmetry type of the geometric structure. Note $\mathcal G_n$ is the subgroup of $\operatorname{Aff}_n$ preserving the
+extra structure (a metric, a symplectic form, a complex structure, etc.), and $H_n$ is its image in the linear group $\operatorname{GL}_n(\mathbb{R})$, i.e. the group of linear automorphisms of a single tangent
+space $T_p\mathbb{A}^n\cong\mathbb{R}^n$. In contrast to the quantum field theory setting, $H_n$ need not be compact, and the target of $\rho_n$ is $\operatorname{GL}_n(\mathbb{R})$ rather than $O_n$. We are no
+longer requiring a Wick-rotated reflection-positive structure, only a
+torsion-free geometric one. The basic examples are summarized by the following table:
 \[
 \begin{array}{c|c|c}
 H_n & \text{Affine geometry} & \text{Curved geometry} \\ \hline
@@ -1081,67 +1050,117 @@ U_{n/2} & \text{Hermitian} & \text{Kähler} \\
 {\rm Spin}_n & \text{spin} & \text{spin}
 \end{array}
 \]
-Internal symmetry groups can also be incorporated into this framework, though they are not done here or in [F].\\
+In each row, $\rho_n$ is the evident representation of $H_n$. Internal symmetry groups can also be incorporated into this framework, by taking a further product with a compact group acting trivially on $\mathbb{R}^n$. This is not carried out here or in [F]. 
 
-The transition from affine to curved geometry can be understood in terms of
-parallelism. Affine geometry has a global parallelism, encoded by the
-simply transitive action of the translation group $\mathbb{R}^n$. On a general
-manifold, there is no canonical way to identify tangent spaces at distinct
-points. The curved analogue of global parallelism is therefore ``infinitesimal parallelism'', encoded by an affine connection. More
-precisely, an affine connection on a smooth $n$-manifold $M$ is a connection
-on the principal $\operatorname{GL}_n(\mathbb{R})$-bundle of frames
-\[
-\mathcal{B}(M)\longrightarrow M.
-\]
-It is natural to require the affine connection to be torsionfree. In the special case where the image of $\rho_n$ lies in $O_n$, the resulting geometry is
-Riemannian and the unique torsionfree compatible connection is the Levi--Civita connection.
+\subsection*{B.3 Infinitesimal parallelism: frame bundles and connections}
+
+As stated in [F], the transition from affine to curved geometry can be understood in terms of parallelism. Affine geometry has a global parallelism, encoded by the simply
+transitive action of the translation group $\mathbb{R}^n$. That is, any two tangent spaces of $\mathbb{A}^n$ are canonically identified, since translation by the vector joining their basepoints carries one to the other. On a general manifold, there is no canonical way to identify tangent spaces at distinct points. The curved analogue of global parallelism is therefore ``infinitesimal parallelism,'' encoded by an affine connection.
 
 \begin{definition}
-Let $M$ be a smooth $n$-manifold. The frame bundle
-$\mathcal{B}(M)$ is the principal $\operatorname{GL}_n(\mathbb{R})$-bundle whose fiber over $p\in M$ is
+Let $X$ be a smooth $n$-manifold. The frame bundle $\mathcal{B}(X)$ is
+the principal $\operatorname{GL}_n(\mathbb{R})$-bundle whose fiber over
+$p\in X$ is
 \[
-\mathcal{B}_p(M)
+\mathcal{B}_p(X)
 =
 \left\{
 (e_1,\ldots,e_n)
 \;\middle|\;
-(e_1,\ldots,e_n)\text{ is a basis of }T_pM
+(e_1,\ldots,e_n)\text{ is a basis of }T_pX
 \right\}.
 \]
 \end{definition}
 
-We can now replace the global affine symmetry by a local geometric structure
-on a curved manifold. Let $(H_n,\rho_n)$ be a Cartan symmetry type, where
+The frame bundle carries a tautological $\mathbb{R}^n$-valued $1$-form, the ``soldering form":
+\[
+\theta \in \Omega^1\bigl(\mathcal{B}(X);\mathbb{R}^n\bigr), \qquad
+\theta_{(p,e)}(v) = e^{-1}\bigl(d\pi(v)\bigr),
+\]
+where $\pi:\mathcal{B}(X)\to X$ is the bundle projection and $e:\mathbb{R}^n\xrightarrow{\ \sim\ }T_pX$ is the frame regarded as a linear isomorphism. The soldering form is the mechanism by which $\mathcal{B}(X)$ ``remembers'' the tangent space at each point in a way that can be compared with the model
+space $\mathbb{R}^n$. That is, it plays the role that the tautological identification of tangent spaces plays in $\mathbb{A}^n$.\\
+
+An affine connection on $X$ is a connection $1$-form on the principal
+$\operatorname{GL}_n(\mathbb{R})$-bundle $\mathcal{B}(X)\to X$, i.e.\ a
+$\mathfrak{gl}_n(\mathbb{R})$-valued $1$-form on $\mathcal B(X)$ satisfying
+the usual equivariance and reproducing properties. Given such a connection $\omega$, its torsion is the $\mathbb{R}^n$-valued $2$-form
+\[
+T = d\theta + \omega\wedge\theta,
+\]
+and the connection is torsion-free if $T=0$. Torsion-free connections are exactly those whose parallel transport, to second order, agrees with translation in the model affine space $\mathbb{A}^n$, matching the fact that $\operatorname{Aff}_n$
+itself has no ``twisting'' built into its translation subgroup. In the
+special case where the image of $\rho_n$ lies in $O_n$ (i.e. where the structure includes a Riemannian metric) the resulting geometry is
+Riemannian, and the unique torsionfree compatible connection is the Levi-Civita connection. This is the classical fundamental theorem of
+Riemannian geometry, and it is the model for the general existence and
+uniqueness statements one looks for in $H_n$-geometry.
+
+\subsection*{B.4 Differential $H_n$-structures}
+
+We can now replace the global affine symmetry by a local geometric structure on a curved manifold. Let $(H_n,\rho_n)$ be a Cartan symmetry type, where
 \[
 \rho_n:H_n\longrightarrow\operatorname{GL}_n(\mathbb{R})
 \]
-is a homomorphism. The group $H_n$ specifies the allowed local symmetries,
-while $\rho_n$ describes how these symmetries act on the tangent space.
+is a homomorphism. The group $H_n$ specifies the allowed local symmetries, while $\rho_n$ describes how these symmetries act on the tangent space.
 
 \begin{definition}[Differential $H_n$-structure]
-Let $(H_n,\rho_n)$ be a Cartan symmetry type. A \emph{differential
-$H_n$-structure} on a smooth $n$-manifold $M$ is a triple
+Let $(H_n,\rho_n)$ be a Cartan symmetry type. A differential
+$H_n$-structure on a smooth $n$-manifold $X$ is a triple
 \[
 (P,\Theta,\varphi),
 \]
-where $P\to M$ is a principal $H_n$-bundle equipped with a connection
+where $P\to X$ is a principal $H_n$-bundle equipped with a connection
 $\Theta$, and
 \[
-\varphi:\mathcal{B}(M)\longrightarrow \rho_n(P)
+\varphi:\mathcal{B}(X)\longrightarrow \rho_n(P)
 \]
-is an isomorphism of principal $\operatorname{GL}_n(\mathbb{R})$-bundles
-such that the induced connection
+is an isomorphism of principal $\operatorname{GL}_n(\mathbb{R})$-bundles such that the induced connection
 \[
 \varphi^*\rho_n(\Theta)
 \]
-is torsionfree.
+is torsion-free.
 \end{definition}
 
+Here $\rho_n(P) = P\times_{H_n}\operatorname{GL}_n(\mathbb{R})$ is the principal $\operatorname{GL}_n(\mathbb{R})$-bundle induced from $P$ along
+$\rho_n$, and $\rho_n(\Theta)$ is the induced connection on it. Two remarks
+clarify the roles of the data $(P,\Theta,\varphi)$:
+
+\begin{remark}
+\begin{itemize}
+\item The isomorphism $\varphi$ is a reduction of structure group. Since $\mathcal B(X)$ is the frame bundle of $X$, an isomorphism
+$\varphi:\mathcal B(X)\to\rho_n(P)$ of $\operatorname{GL}_n(\mathbb{R})$-bundles is the classical data of a reduction of the structure group of $X$ from $\operatorname{GL}_n(\mathbb{R})$ to $H_n$ (via $\rho_n$), together with a choice of identification. When $\rho_n$ is injective this recovers the familiar statement that, e.g., a Riemannian metric is equivalently an $O_n$-reduction of the frame bundle. Note $\varphi$ picks out, at each point, the subset of frames
+that are ``orthonormal.'' When $\rho_n$ is not injective, the same data still makes sense and encodes the additional lift information e.g. a spin structure.
+
+\item The torsion-free condition links the connection to the smooth
+structure of $X$ itself. The connection $\Theta$ on $P$ a priori has nothing to do with the tangent bundle of $X$. It becomes geometric only once transported to $\mathcal B(X)$ via $\varphi$ and is required to be torsion-free. This is the curved analogue of the requirement in the affine picture that $\mathcal H_n$ sits over $H_n$ compatibly with the fixed inclusion $H_n\hookrightarrow\operatorname{GL}_n(\mathbb{R})\hookrightarrow\operatorname{Aff}_n$. The ``rotational'' part $H_n$ and the ``translational''
+part $\mathbb{R}^n$ are locked together, and $\varphi^*\rho_n(\Theta)$
+torsion-free is exactly what locks them together on $X$.
+\end{itemize}
+\end{remark}
+
+\begin{example}[Riemannian structures, worked out]
+Take $H_n = O_n$ with $\rho_n$ the standard representation. A differential $H_n$-structure on $X$ then consists of:
+\begin{itemize}
+\item a principal $O_n$-bundle $P\to X$ with connection $\Theta$;
+\item an isomorphism $\varphi:\mathcal B(X)\to\rho_n(P)$, torsion-free for $\Theta$.
+\end{itemize}
+The associated vector bundle $P\times_{O_n}\mathbb{R}^n$ carries a canonical fiber-wise inner product (since $O_n$ preserves the standard inner product on $\mathbb{R}^n$), and $\varphi$ transports this inner product to $TX$ producing a Riemannian metric $g$ on $X$. Conversely, given $g$, let $P$ be
+the bundle of $g$-orthonormal frames; the torsion-free, metric-compatible
+connection $\Theta$ on $P$ is then forced to be the Levi-Civita connection by the fundamental theorem of Riemannian geometry, and $\varphi$ is the tautological inclusion $\mathcal B(X)\supset P \hookrightarrow \rho_n(P)$
+composed with the isomorphism $\rho_n(P)\cong \mathcal{B}(X)$ induced by $O_n\hookrightarrow \operatorname{GL}_n(\mathbb{R})$. Thus for $H_n=O_n$ the abstract definition recovers, and is equivalent to, an ordinary Riemannian
+metric together with its Levi-Civita connection.
+\end{example}
+
+\begin{remark}
+Existence of a differential $H_n$-structure on $X$ is a topological question requiring the classifying map $X\to B\operatorname{GL}_n(\mathbb{R})$ to
+lift along $B\rho_n:BH_n\to B\operatorname{GL}_n(\mathbb{R})$. The
+torsion-free condition is typically a matter of existence and uniqueness of a compatible connection, exactly as in the Riemannian case above. We will not need the general existence theory here since it is enough to know that a differential $H_n$-structure is the natural curved refinement of a Cartan symmetry type $(H_n,\rho_n)$.
+\end{remark}
+
 Thus, the affine picture provides the model geometry and its global symmetry
-group, while a differential $H_n$-structure replaces this global symmetry by
-an infinitesimal symmetry acting on each tangent space. The study of
-$H_n$-geometry is then the study of the invariants of smooth manifolds
-equipped with such structures and their diffeomorphisms.
+group, while a differential $H_n$-structure replaces this global symmetry by an infinitesimal symmetry acting on each tangent space, mediated by the frame bundle and its soldering form. The study of $H_n$-geometry is then the study of the invariants of smooth manifolds equipped with such structures and
+their diffeomorphisms. It is this notion that is used in the main
+text to build the bordism category $\operatorname{Bord}_{\langle
+n-1,n\rangle}(H_n^\nabla)$ underlying Axiom 1 where objects and morphisms of that category are manifolds equipped with differential $H_n$-structures as defined here.
 
 \end{appendices}
 
