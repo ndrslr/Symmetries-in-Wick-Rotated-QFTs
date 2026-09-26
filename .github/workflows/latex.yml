@@ -34,7 +34,7 @@ jobs:
           <html>
           <head>
               <meta charset="UTF-8">
-              <title>My LaTeX Document</title>
+              <title>Symmetries in Wick-Rotated QFTs</title>
               <style>
                   body {
                       margin: 0;
